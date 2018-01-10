@@ -1,0 +1,8 @@
+prefix=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/install
+
+Name: pan_tilt_cam
+Description: Description of pan_tilt_cam
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/lorejam/sameen/arq-teleop-robot/catkin_ws/install/lib 
+Requires: 

@@ -117,6 +117,9 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/gtest/cmake_install.cmake")
+  include("/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/pan_tilt_description/cmake_install.cmake")
+  include("/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/pan_tilt_gazebo/cmake_install.cmake")
+  include("/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/pan_tilt_cam/cmake_install.cmake")
 
 endif()
 

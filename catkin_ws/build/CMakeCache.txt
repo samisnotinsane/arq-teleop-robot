@@ -274,6 +274,27 @@ gtest_force_shared_crt:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//Value Computed by CMake
+pan_tilt_cam_BINARY_DIR:STATIC=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/pan_tilt_cam
+
+//Value Computed by CMake
+pan_tilt_cam_SOURCE_DIR:STATIC=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/src/pan_tilt_cam
+
+//Value Computed by CMake
+pan_tilt_description_BINARY_DIR:STATIC=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/pan_tilt_description
+
+//Value Computed by CMake
+pan_tilt_description_SOURCE_DIR:STATIC=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/src/pan_tilt_description
+
+//Value Computed by CMake
+pan_tilt_gazebo_BINARY_DIR:STATIC=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/build/pan_tilt_gazebo
+
+//Value Computed by CMake
+pan_tilt_gazebo_SOURCE_DIR:STATIC=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/src/pan_tilt_gazebo
+
+//The directory containing a CMake configuration file for roslaunch.
+roslaunch_DIR:PATH=/opt/ros/kinetic/share/roslaunch/cmake
+
 
 ########################
 # INTERNAL cache entries
@@ -376,7 +397,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

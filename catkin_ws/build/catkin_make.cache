@@ -1,2 +1,2 @@
-
+pan_tilt_cam:pan_tilt_description:pan_tilt_gazebo
 -DCATKIN_DEVEL_PREFIX=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/install -G Unix Makefiles
