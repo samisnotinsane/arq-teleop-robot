@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/lorejam/sameen/arq-teleop-robot/catkin_ws/devel/setup.sh
