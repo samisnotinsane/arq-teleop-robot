@@ -1,10 +1,40 @@
 <?xml version="1.0"?>
-<robot name="myfirst">
+<robot name="box">
+
+  <link name="world"/>
+
   <link name="base_link">
-    <visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
         <box size="0.6 0.1 0.2"/>
       </geometry>
+    </collision>
+
+    <visual>
+      <geometry>
+        <box size="3 0.1 0.2"/>
+      </geometry>
     </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
   </link>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
 </robot>
