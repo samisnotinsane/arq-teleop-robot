@@ -16,7 +16,7 @@
       <geometry>
         <box size="0.6 0.1 0.2"/>
       </geometry>
-      <origin rpy="0 1.57075 0" xyz="0 0 -0.3"/>
+      <origin rpy="0 1.57075 0" xyz="0 0 0.3"/>
     </visual>
 
     <inertial>
