@@ -12,10 +12,10 @@
   <!-- Description of base. -->
   <link name="base_link">
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <box size="0.6 0.1 0.2"/>
+        <box size="0.6 0.3 0.3"/>
       </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0.3"/>
     </collision>
 
     <visual>
