@@ -1,10 +1,16 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pan_tilt">
+  <!-- Documentation on URDF: http://wiki.ros.org/urdf/XML -->
+  <!-- Documentation on Xacro: http://wiki.ros.org/xacro -->
+  
+  <!-- Xacro properties are constants. -->
+  <!-- Size of square 'camera' box -->
+  <xacro:property name="camera_link" value="0.05" />
 
   <link name="world"/>
 
+  <!-- Description of base. -->
   <link name="base_link">
-
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -14,7 +20,10 @@
 
     <visual>
       <geometry>
-        <box size="0.6 0.1 0.2"/>
+      <!-- http://wiki.ros.org/rviz/DisplayTypes/Axes -->
+      <!-- Red, Green, Blue -->
+      <!-- x, y, z -->
+        <box size="0.6 0.3 0.3"/> 
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 0.3"/>
     </visual>
@@ -27,16 +36,87 @@
         iyy="1.0" iyz="0.0"
         izz="1.0"/>
     </inertial>
+  </link>
+
+  <!-- Description of head. -->
+  <link name="top_head">
+    <visual>
+      <geometry>
+        <box size="0.15 0.15 0.15" />
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0.9"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <box size="0.15 0.15 0.15" />
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0.9"/>
+    </collision>
+  </link>
+
+  <!-- Description of camera. -->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${camera_link} ${camera_link} ${camera_link}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <box size="${camera_link} ${camera_link} ${camera_link}"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <!-- <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" izy="0" izz="1e-6" /> -->
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
 
   </link>
 
+  <!-- Attach camera to head. -->
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <!-- Determine measurements xyz. -->
+    <origin xyz="${camera_link} 0 0" rpy="0 0 0"/>
+    <parent link="top_head" />
+    <child link="camera_link" />
+  </joint>
+
+  <!-- Attach base to world. -->
   <joint name="fixed" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
   </joint>
 
+  <!-- Roll is around x, yaw is around z, and pitch is around y. -->
+
+
+  <!-- Connect head with base which allows the head to move in 3D. -->
+  <joint name="base_to_top_head" type="fixed">
+    <origin xyz="0 0 0.89" />
+    <parent link="base_link" />
+    <child link="top_head" />
+  </joint>
+
+  <!-- Make color of body and head red. -->
   <gazebo reference="base_link">
-    <material>Gazebo/Orange</material>
+    <material>Gazebo/DarkYellow</material>
+  </gazebo>
+
+  <gazebo reference="top_head">
+    <material>Gazebo/White</material>
+  </gazebo>
+
+  <!-- Make colour of camera red. -->
+  <gazebo reference="camera_link">
+    <material>Gazebo/Red</material>
   </gazebo>
 
 </robot>

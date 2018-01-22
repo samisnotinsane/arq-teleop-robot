@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="model" />
+  <arg name="model" default="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
   <arg name="gui" default="true" />
   <arg name="rvizconfig" default="$(find pan_tilt_gazebo)/rviz/urdf.rviz" />
 
