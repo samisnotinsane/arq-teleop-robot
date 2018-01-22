@@ -7,13 +7,33 @@
   <!-- Size of square 'camera' box -->
   <xacro:property name="camera_link" value="0.05" />
 
+  <!-- Dimensions of base. -->
+  <xacro:property name="base_link_size_x" value="0.6" />
+  <xacro:property name="base_link_size_y" value="0.3" />
+  <xacro:property name="base_link_size_z" value="0.3"/>
+
+  <!-- Dimensions of head. -->
+  <xacro:property name="head_link_size_x" value="0.15" />
+  <xacro:property name="head_link_size_y" value="0.15" />
+  <xacro:property name="head_link_size_z" value="0.15" />
+  
+  <!-- Origin position of head.  -->
+  <!-- 
+    *BUG*: 
+    For some mysterious reason, even when all values are 0,
+    the link refuses to stay grounded and floats above base.
+  -->
+  <xacro:property name="head_link_origin_x" value="0" />
+  <xacro:property name="head_link_origin_y" value="0" />
+  <xacro:property name="head_link_origin_z" value="0" />
+
   <link name="world"/>
 
   <!-- Description of base. -->
   <link name="base_link">
     <collision>
       <geometry>
-        <box size="0.6 0.3 0.3"/>
+        <box size="${base_link_size_x} ${base_link_size_y} ${base_link_size_z}"/>
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 0.3"/>
     </collision>
@@ -23,7 +43,7 @@
       <!-- http://wiki.ros.org/rviz/DisplayTypes/Axes -->
       <!-- Red, Green, Blue -->
       <!-- x, y, z -->
-        <box size="0.6 0.3 0.3"/> 
+        <box size="${base_link_size_x} ${base_link_size_y} ${base_link_size_z}"/> 
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 0.3"/>
     </visual>
@@ -39,20 +59,30 @@
   </link>
 
   <!-- Description of head. -->
-  <link name="top_head">
-    <visual>
-      <geometry>
-        <box size="0.15 0.15 0.15" />
-      </geometry>
-      <origin rpy="0 1.57075 0" xyz="0 0 0.9"/>
-    </visual>
-
+  <link name="head_link">
     <collision>
       <geometry>
-        <box size="0.15 0.15 0.15" />
+        <box size="${head_link_size_x} ${head_link_size_y} ${head_link_size_z}" />
       </geometry>
-      <origin rpy="0 1.57075 0" xyz="0 0 0.9"/>
+      <origin rpy="0 1.57075 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
     </collision>
+
+    <visual>
+      <geometry>
+        <box size="${head_link_size_x} ${head_link_size_y} ${head_link_size_z}" />
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1"/>
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0"/>
+    </inertial>
+
   </link>
 
   <!-- Description of camera. -->
@@ -74,7 +104,6 @@
     <inertial>
       <mass value="1e-5" />
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <!-- <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" izy="0" izz="1e-6" /> -->
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
 
@@ -85,7 +114,7 @@
     <axis xyz="0 1 0" />
     <!-- Determine measurements xyz. -->
     <origin xyz="${camera_link} 0 0" rpy="0 0 0"/>
-    <parent link="top_head" />
+    <parent link="head_link" />
     <child link="camera_link" />
   </joint>
 
@@ -99,10 +128,10 @@
 
 
   <!-- Connect head with base which allows the head to move in 3D. -->
-  <joint name="base_to_top_head" type="fixed">
-    <origin xyz="0 0 0.89" />
+  <joint name="base_to_head_link" type="fixed">
+    <origin xyz="0 0 0.68" />
     <parent link="base_link" />
-    <child link="top_head" />
+    <child link="head_link" />
   </joint>
 
   <!-- Make color of body and head red. -->
@@ -110,7 +139,7 @@
     <material>Gazebo/DarkYellow</material>
   </gazebo>
 
-  <gazebo reference="top_head">
+  <gazebo reference="head_link">
     <material>Gazebo/White</material>
   </gazebo>
 
