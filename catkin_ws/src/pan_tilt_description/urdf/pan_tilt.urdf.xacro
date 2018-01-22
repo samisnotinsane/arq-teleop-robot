@@ -2,10 +2,10 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pan_tilt">
   <!-- Documentation on URDF: http://wiki.ros.org/urdf/XML -->
   <!-- Documentation on Xacro: http://wiki.ros.org/xacro -->
-  
+
   <!-- Xacro properties are constants. -->
   <!-- Size of square 'camera' box -->
-  <xacro:property name="camera_link" value="0.05" />
+  <xacro:property name="camera_link" value="0.025" />
 
   <!-- Dimensions of base. -->
   <xacro:property name="base_link_size_x" value="0.6" />
@@ -27,6 +27,18 @@
   <xacro:property name="head_link_origin_y" value="0" />
   <xacro:property name="head_link_origin_z" value="0" />
 
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="orange">
+    <color rgba="179.0 107.0 0.0 1.0"/>
+  </material>
+
   <link name="world"/>
 
   <!-- Description of base. -->
@@ -46,6 +58,7 @@
         <box size="${base_link_size_x} ${base_link_size_y} ${base_link_size_z}"/> 
       </geometry>
       <origin rpy="0 1.57075 0" xyz="0 0 0.3"/>
+      <material name="white" />
     </visual>
 
     <inertial>
@@ -72,6 +85,7 @@
         <box size="${head_link_size_x} ${head_link_size_y} ${head_link_size_z}" />
       </geometry>
       <origin rpy="0 1.57075 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
+      <material name="orange" />
     </visual>
 
     <inertial>
@@ -88,34 +102,34 @@
   <!-- Description of camera. -->
   <link name="camera_link">
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <box size="${camera_link} ${camera_link} ${camera_link}"/>
       </geometry>
     </collision>
 
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
          <box size="${camera_link} ${camera_link} ${camera_link}"/>
       </geometry>
+      <origin rpy="0 1.57075 0" xyz="0.063 -0.035 0.035"/>
     </visual>
 
     <inertial>
       <mass value="1e-5" />
-      <origin xyz="0 0 0" rpy="0 0 0" />
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
     </inertial>
 
   </link>
 
   <!-- Attach camera to head. -->
-  <joint name="camera_joint" type="fixed">
+  <joint name="head_to_cam" type="fixed">
     <axis xyz="0 1 0" />
     <!-- Determine measurements xyz. -->
     <origin xyz="${camera_link} 0 0" rpy="0 0 0"/>
     <parent link="head_link" />
     <child link="camera_link" />
+    <origin xyz="0 0 0"/>
   </joint>
 
   <!-- Attach base to world. -->
