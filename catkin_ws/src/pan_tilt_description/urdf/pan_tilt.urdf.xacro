@@ -111,7 +111,7 @@
       <geometry>
          <box size="${camera_link} ${camera_link} ${camera_link}"/>
       </geometry>
-      <origin rpy="0 1.57075 0" xyz="0.063 -0.035 0.035"/>
+      <origin rpy="0 1.57075 0" xyz="0.025 0 0"/>
     </visual>
 
     <inertial>
@@ -126,7 +126,7 @@
   <joint name="head_to_cam" type="fixed">
     <axis xyz="0 1 0" />
     <!-- Determine measurements xyz. -->
-    <origin xyz="${camera_link} 0 0" rpy="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0.063 -0.035 0.035" />
     <parent link="head_link" />
     <child link="camera_link" />
     <origin xyz="0 0 0"/>
