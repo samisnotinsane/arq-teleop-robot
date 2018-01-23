@@ -58,7 +58,7 @@
         <cameraName>
             Defines the name of this camera in ROS.
         -->
-        <cameraName>rrbot/camera1</cameraName>
+        <cameraName>pan_tilt/camera1</cameraName>
         <!-- 
         <imageTopicName> 
             Defines the topic name the camera will be publishing images to

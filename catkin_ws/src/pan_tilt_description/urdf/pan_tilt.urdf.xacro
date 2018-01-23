@@ -1,5 +1,20 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pan_tilt">
+  
+  <!--
+
+  IMPORTANT!
+
+  If you modify this Xacro based URDF description, please run:
+  . update_urdf.sh
+  from directory:
+    pan_tilt_description/urdf/
+  to generate a new URDF.
+  The generated URDF will then be used by Gazebo to spawn the pan_tilt bot.
+
+  Failure to do this will result in your change being not reflected in simulation.
+  -->
+
   <!-- Documentation on URDF: http://wiki.ros.org/urdf/XML -->
   <!-- Documentation on Xacro: http://wiki.ros.org/xacro -->
 
@@ -27,18 +42,12 @@
   <xacro:property name="head_link_origin_y" value="0" />
   <xacro:property name="head_link_origin_z" value="0" />
 
-  <material name="blue">
-    <color rgba="0 0 0.8 1"/>
-  </material>
+  <!-- Import all Gazebo-customisation elements, including Gazebo colours. -->
+  <xacro:include filename="$(find pan_tilt_description)/urdf/pan_tilt.gazebo" />
 
-  <material name="white">
-    <color rgba="1 1 1 1"/>
-  </material>
-
-  <material name="orange">
-    <color rgba="179.0 107.0 0.0 1.0"/>
-  </material>
-
+  <!-- Import Rviz colours. -->
+  <xacro:include filename="$(find pan_tilt_description)/urdf/materials.xacro" />
+  
   <link name="world"/>
 
   <!-- Description of base. -->
