@@ -1,6 +1,10 @@
 <launch>
- <arg name="model" default="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
+  <!-- The path of the robot URDF description file. -->
+  <arg name="model" default="$(find pan_tilt_description)/urdf/pan_tilt.urdf" />
+
+  <!-- Pass URDF file into Xacro preprocessor and load into ROS parameter server. -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+  
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
@@ -11,7 +15,7 @@
     <!-- more default parameters can be changed here -->
   </include>
   <!-- 
-  Spawning URDF robot in Gazebo using 'ROS Service Call Spawn' Method: 
+  Spawning URDF robot in Gazebo using its ROS API ('ROS Service Call Spawn' Method): 
     This method uses a small python script called spawn_model to make a service call request 
     to the gazebo_ros ROS node (named simply "gazebo" in the rostopic namespace) 
     to add a custom URDF into Gazebo. The spawn_model script is located within the gazebo_ros package.
@@ -29,5 +33,5 @@
       initial pose, use 0 if left out
   -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-   args="-file $(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro -urdf -z 1 -model pan_tilt" />
+   args="-file $(arg model) -urdf -z 1 -model pan_tilt" />
 </launch>
