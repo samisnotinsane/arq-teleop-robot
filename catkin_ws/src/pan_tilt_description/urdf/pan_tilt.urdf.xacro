@@ -123,17 +123,16 @@
   </link>
 
   <!-- Attach camera to head. -->
-  <joint name="head_to_cam" type="fixed">
+  <joint name="cam_to_head" type="fixed">
     <axis xyz="0 1 0" />
     <!-- Determine measurements xyz. -->
     <origin rpy="0 0 0" xyz="0.063 -0.035 0.035" />
     <parent link="head_link" />
     <child link="camera_link" />
-    <origin xyz="0 0 0"/>
   </joint>
 
   <!-- Attach base to world. -->
-  <joint name="fixed" type="fixed">
+  <joint name="base_to_world" type="fixed">
     <parent link="world"/>
     <child link="base_link"/>
   </joint>
@@ -142,24 +141,10 @@
 
 
   <!-- Connect head with base which allows the head to move in 3D. -->
-  <joint name="base_to_head_link" type="fixed">
-    <origin xyz="0 0 0.68" />
+  <joint name="head_to_base" type="fixed">
     <parent link="base_link" />
     <child link="head_link" />
+    <origin xyz="0 0 0.68" />
   </joint>
-
-  <!-- Make color of body and head red. -->
-  <gazebo reference="base_link">
-    <material>Gazebo/DarkYellow</material>
-  </gazebo>
-
-  <gazebo reference="head_link">
-    <material>Gazebo/White</material>
-  </gazebo>
-
-  <!-- Make colour of camera red. -->
-  <gazebo reference="camera_link">
-    <material>Gazebo/Red</material>
-  </gazebo>
 
 </robot>
