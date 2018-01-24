@@ -10,13 +10,18 @@
     <material>Gazebo/White</material>
   </gazebo>
 
-  <!-- Make colour of camera red. -->
-  <gazebo reference="camera_link">
+  <!-- Make colour of right camera red. -->
+  <gazebo reference="camera_link_right">
     <material>Gazebo/Red</material>
   </gazebo>
 
- <!-- camera -->
-  <gazebo reference="camera_link">
+<!-- Make colour of left camera blue. -->
+  <gazebo reference="camera_link_left">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+ <!-- right camera -->
+  <gazebo reference="camera_link_right">
     <sensor type="camera" name="camera1">
     <!--
     <update_rate>
@@ -58,7 +63,7 @@
         <cameraName>
             Defines the name of this camera in ROS.
         -->
-        <cameraName>pan_tilt/camera1</cameraName>
+        <cameraName>stereo/right</cameraName>
         <!-- 
         <imageTopicName> 
             Defines the topic name the camera will be publishing images to
@@ -85,5 +90,77 @@
       </plugin>
     </sensor>
   </gazebo>
+
+<!-- left camera -->
+  <gazebo reference="camera_link_left">
+    <sensor type="camera" name="camera2">
+    <!--
+    <update_rate>
+        Number of times per second a new camera image is taken within Gazebo. 
+        This is the maximum update rate the sensor will attempt during simulation but 
+        it could fall behind this target rate if the physics simulation runs faster than 
+        the sensor generation can keep up.
+     -->
+      <update_rate>30.0</update_rate>
+      <!-- Specification of camera. Note: Pixels are assumed to be square. -->
+      <camera name="cam1">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <!-- 
+        The <near> and <far> clips are simulation-specific parameters 
+        that give an upper and lower bound to the distance in which the 
+        cameras can see objects in the simulation. -->
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <!-- 
+        <cameraName>
+            Defines the name of this camera in ROS.
+        -->
+        <cameraName>stereo/left</cameraName>
+        <!-- 
+        <imageTopicName> 
+            Defines the topic name the camera will be publishing images to
+            in ROS. 
+        -->
+        <imageTopicName>image_raw</imageTopicName>
+        <!-- 
+        <cameraInfoTopicName> 
+            Defines the topic name the camera will publish information about 
+            itself in ROS.
+        -->
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <!-- 
+        <frameName>
+            The coordinate frame the image is published under in the tf tree. 
+        -->
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
 
 </robot>

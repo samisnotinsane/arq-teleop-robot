@@ -6,7 +6,7 @@
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
   
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
   <!-- Gazebo documentation: http://gazebosim.org/tutorials?tut=ros_roslaunch -->
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
@@ -31,7 +31,9 @@
       name of the model to be spawned.
     -z <z in meters> - optional
       initial pose, use 0 if left out
+
+      Remember: Roll is around x, yaw is around z, and pitch is around y!
   -->
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
-   args="-file $(arg model) -urdf -z 1 -model pan_tilt" />
+   args="-file $(arg model) -urdf -Y -1.57 -model pan_tilt" />
 </launch>
