@@ -1,8 +1,0 @@
-prefix=/home/lorejam/sameen/arq-teleop-robot/catkin_ws/install
-
-Name: pan_tilt_gazebo
-Description: Description of pan_tilt_gazebo
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/lorejam/sameen/arq-teleop-robot/catkin_ws/install/lib 
-Requires: 
