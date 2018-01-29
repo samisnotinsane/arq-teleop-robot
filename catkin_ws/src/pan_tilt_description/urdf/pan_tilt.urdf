@@ -291,9 +291,11 @@
   </joint>
   <!-- Roll is around x, yaw is around z, and pitch is around y. -->
   <!-- Connect head with base which allows the head to move in 3D. -->
-  <joint name="head_to_base" type="fixed">
+  <joint name="head_to_base" type="revolute">
     <parent link="base_link"/>
     <child link="head_link"/>
+	<limit effort="1000.0" lower="0.0" upper="3.1412" velocity="0.5"/>
+	<axis xyz="0 0 1"/>
     <origin xyz="0 0 0.68"/>
   </joint>
 </robot>
