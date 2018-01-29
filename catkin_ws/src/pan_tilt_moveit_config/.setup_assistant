@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: pan_tilt_description
+    relative_path: urdf/pan_tilt.urdf
+  SRDF:
+    relative_path: config/pan_tilt.srdf
+  CONFIG:
+    author_name: Sameen Islam
+    author_email: s.islam@se14.qmul.ac.uk
+    generated_timestamp: 1517239753

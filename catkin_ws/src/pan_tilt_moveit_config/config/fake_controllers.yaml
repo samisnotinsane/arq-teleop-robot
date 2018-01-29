@@ -1,0 +1,4 @@
+controller_list:
+  - name: fake_neck_controller
+    joints:
+      - head_to_base
