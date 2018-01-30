@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pan_tilt">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pan_tilt_bot">
   
   <!--
 
@@ -188,5 +188,18 @@
 	  <axis xyz="0 0 1"/>
     <origin xyz="0 0 0.68" />
   </joint>
+
+  <!-- Use transmission to link motor to head joint. -->
+  <transmission name="transmission1">
+    <!-- Gazebo only supports transmission_interface/SimpleTransmission -->
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="head_to_base">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="actuator1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
 </robot>

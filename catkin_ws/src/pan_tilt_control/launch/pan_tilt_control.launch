@@ -1,0 +1,13 @@
+<launch>
+	<!-- Load YAML configurations to parameter server. -->
+	<rosparam file="$(find pan_tilt_control)/config/pan_tilt_control.yaml" command="load" />
+	<rosparam file="$(find pan_tilt_control)/config/joint_state_controller.yaml" command="load" />
+	
+	<!-- Load controllers. -->
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/pan_tilt_bot" args="joint_head_to_base_position_controller" /> 
+	<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller" /> 
+	<!-- Convert joint states to TF transforms for Rviz. -->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"	respawn="false" output="screen" >
+		<remap from="/joint_states" to="/pan_tilt_bot/joint_states" />
+	</node>
+</launch>

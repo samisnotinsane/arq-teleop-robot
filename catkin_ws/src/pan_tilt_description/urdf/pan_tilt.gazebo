@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 <robot>
 
+  <!-- 
+    Add support for Gazebo-ROS-Control.
+    http://gazebosim.org/tutorials/?tut=ros_control
+  -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <!-- <robotNamespace>/pan_tilt_bot</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType> -->
+    </plugin>
+  </gazebo>
+
   <!-- Make color of body and head red. -->
   <gazebo reference="base_link">
     <material>Gazebo/DarkYellow</material>
