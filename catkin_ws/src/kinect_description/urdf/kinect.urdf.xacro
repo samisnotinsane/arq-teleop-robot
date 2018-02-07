@@ -94,7 +94,7 @@
     </inertial>
   </link>
 
-  <!-- Description of camera.-->
+  <!-- Description of sensor.-->
   <link name="sensor">
     <collision>
       <geometry>

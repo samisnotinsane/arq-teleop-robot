@@ -1,24 +1,24 @@
 Determining if the pthread_create exist failed with the following output:
-Change Dir: /home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp
+Change Dir: /home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_107ee/fast"
-/usr/bin/make -f CMakeFiles/cmTC_107ee.dir/build.make CMakeFiles/cmTC_107ee.dir/build
-make[1]: Entering directory '/home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_107ee.dir/CheckSymbolExists.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_107ee.dir/CheckSymbolExists.c.o   -c /home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_107ee
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_107ee.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_107ee.dir/CheckSymbolExists.c.o  -o cmTC_107ee -rdynamic 
-CMakeFiles/cmTC_107ee.dir/CheckSymbolExists.c.o: In function `main':
+Run Build Command:"/usr/bin/make" "cmTC_db151/fast"
+/usr/bin/make -f CMakeFiles/cmTC_db151.dir/build.make CMakeFiles/cmTC_db151.dir/build
+make[1]: Entering directory '/home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_db151.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_db151.dir/CheckSymbolExists.c.o   -c /home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_db151
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_db151.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_db151.dir/CheckSymbolExists.c.o  -o cmTC_db151 -rdynamic 
+CMakeFiles/cmTC_db151.dir/CheckSymbolExists.c.o: In function `main':
 CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_107ee.dir/build.make:97: recipe for target 'cmTC_107ee' failed
-make[1]: *** [cmTC_107ee] Error 1
-make[1]: Leaving directory '/home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_107ee/fast' failed
-make: *** [cmTC_107ee/fast] Error 2
+CMakeFiles/cmTC_db151.dir/build.make:97: recipe for target 'cmTC_db151' failed
+make[1]: *** [cmTC_db151] Error 1
+make[1]: Leaving directory '/home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_db151/fast' failed
+make: *** [cmTC_db151/fast] Error 2
 
-File /home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+File /home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
 #include <pthread.h>
 
@@ -34,22 +34,22 @@ int main(int argc, char** argv)
 }
 
 Determining if the function pthread_create exists in the pthreads failed with the following output:
-Change Dir: /home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp
+Change Dir: /home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_9945d/fast"
-/usr/bin/make -f CMakeFiles/cmTC_9945d.dir/build.make CMakeFiles/cmTC_9945d.dir/build
-make[1]: Entering directory '/home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_9945d.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_9945d.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
-Linking C executable cmTC_9945d
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9945d.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_9945d.dir/CheckFunctionExists.c.o  -o cmTC_9945d -rdynamic -lpthreads 
+Run Build Command:"/usr/bin/make" "cmTC_d410b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d410b.dir/build.make CMakeFiles/cmTC_d410b.dir/build
+make[1]: Entering directory '/home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d410b.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_d410b.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d410b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d410b.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_d410b.dir/CheckFunctionExists.c.o  -o cmTC_d410b -rdynamic -lpthreads 
 /usr/bin/ld: cannot find -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_9945d.dir/build.make:97: recipe for target 'cmTC_9945d' failed
-make[1]: *** [cmTC_9945d] Error 1
-make[1]: Leaving directory '/home/arq/wael/catkin_ws/build/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_9945d/fast' failed
-make: *** [cmTC_9945d/fast] Error 2
+CMakeFiles/cmTC_d410b.dir/build.make:97: recipe for target 'cmTC_d410b' failed
+make[1]: *** [cmTC_d410b] Error 1
+make[1]: Leaving directory '/home/arq/wael/arq-teleop-robot/catkin_ws/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_d410b/fast' failed
+make: *** [cmTC_d410b/fast] Error 2
 
 

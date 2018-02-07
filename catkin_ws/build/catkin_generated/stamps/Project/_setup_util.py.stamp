@@ -262,7 +262,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # environment at generation time
-        CMAKE_PREFIX_PATH = '/home/arq/wael/catkin_ws/devel;/home/arq/sameen/arq-teleop-robot/catkin_ws/devel;/home/arq/catkin_ws/devel;/opt/ros/kinetic'.split(';')
+        CMAKE_PREFIX_PATH = '/home/arq/wael/arq-teleop-robot/catkin_ws/devel;/home/arq/wael/catkin_ws/devel;/home/arq/sameen/arq-teleop-robot/catkin_ws/devel;/home/arq/catkin_ws/devel;/opt/ros/kinetic'.split(';')
         # prepend current workspace if not already part of CPP
         base_path = os.path.dirname(__file__)
         if base_path not in CMAKE_PREFIX_PATH:

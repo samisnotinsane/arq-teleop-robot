@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/arq/wael/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/arq/wael/arq-teleop-robot/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/arq/wael/catkin_ws/build
+CMAKE_BINARY_DIR = /home/arq/wael/arq-teleop-robot/catkin_ws/build
 
 # Utility rule file for rosgraph_msgs_generate_messages_lisp.
 
@@ -63,10 +63,10 @@ kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build: ro
 .PHONY : kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 
 kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean:
-	cd /home/arq/wael/catkin_ws/build/kinect_description && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/cmake_clean.cmake
+	cd /home/arq/wael/arq-teleop-robot/catkin_ws/build/kinect_description && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/cmake_clean.cmake
 .PHONY : kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean
 
 kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend:
-	cd /home/arq/wael/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arq/wael/catkin_ws/src /home/arq/wael/catkin_ws/src/kinect_description /home/arq/wael/catkin_ws/build /home/arq/wael/catkin_ws/build/kinect_description /home/arq/wael/catkin_ws/build/kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/arq/wael/arq-teleop-robot/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/arq/wael/arq-teleop-robot/catkin_ws/src /home/arq/wael/arq-teleop-robot/catkin_ws/src/kinect_description /home/arq/wael/arq-teleop-robot/catkin_ws/build /home/arq/wael/arq-teleop-robot/catkin_ws/build/kinect_description /home/arq/wael/arq-teleop-robot/catkin_ws/build/kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : kinect_description/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend
 

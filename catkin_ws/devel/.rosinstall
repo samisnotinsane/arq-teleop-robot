@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/arq/wael/catkin_ws/devel/setup.sh
+    local-name: /home/arq/wael/arq-teleop-robot/catkin_ws/devel/setup.sh

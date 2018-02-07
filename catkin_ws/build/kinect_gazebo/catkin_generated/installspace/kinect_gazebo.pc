@@ -1,8 +1,8 @@
-prefix=/home/arq/wael/catkin_ws/install
+prefix=/home/arq/wael/arq-teleop-robot/catkin_ws/install
 
 Name: kinect_gazebo
 Description: Description of kinect_gazebo
 Version: 0.0.0
 Cflags: 
-Libs: -L/home/arq/wael/catkin_ws/install/lib 
+Libs: -L/home/arq/wael/arq-teleop-robot/catkin_ws/install/lib 
 Requires: 

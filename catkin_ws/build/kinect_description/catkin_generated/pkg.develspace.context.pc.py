@@ -4,5 +4,5 @@ PROJECT_PKG_CONFIG_INCLUDE_DIRS = "".split(';') if "" != "" else []
 PROJECT_CATKIN_DEPENDS = "".replace(';', ' ')
 PKG_CONFIG_LIBRARIES_WITH_PREFIX = "".split(';') if "" != "" else []
 PROJECT_NAME = "kinect_description"
-PROJECT_SPACE_DIR = "/home/arq/wael/catkin_ws/devel"
+PROJECT_SPACE_DIR = "/home/arq/wael/arq-teleop-robot/catkin_ws/devel"
 PROJECT_VERSION = "0.0.0"

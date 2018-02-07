@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/arq/wael/catkin_ws/build"
+export PWD="/home/arq/wael/arq-teleop-robot/catkin_ws/build"
