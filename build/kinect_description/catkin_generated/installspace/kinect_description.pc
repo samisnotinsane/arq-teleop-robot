@@ -1,0 +1,8 @@
+prefix=/home/arq/wael/catkin_ws/install
+
+Name: kinect_description
+Description: Description of kinect_description
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/arq/wael/catkin_ws/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/arq/wael/catkin_ws/devel
+
+Name: kinect_gazebo
+Description: Description of kinect_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/arq/wael/catkin_ws/devel/lib 
+Requires: 

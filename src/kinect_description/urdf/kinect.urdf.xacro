@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kinect_bot">
+  
+  <!--
+
+  IMPORTANT!
+
+  If you modify this Xacro based URDF description, please run:
+  . update_urdf.sh
+  from directory:
+    kinect_description/urdf/
+  to generate a new URDF.
+  The generated URDF will then be used by Gazebo to spawn the kinect bot.
+
+  Failure to do this will result in your change being not reflected in simulation.
+  -->
+
+  <!-- Documentation on URDF: http://wiki.ros.org/urdf/XML -->
+  <!-- Documentation on Xacro: http://wiki.ros.org/xacro -->
+
+  <!-- Xacro properties are constants. -->
+  <!-- Size of square 'camera' box -->
+  <xacro:property name="camera_link" value="0.02" />
+
+  <!-- Dimensions of platform. -->
+  <xacro:property name="platform_width" value="0.4" />
+  <xacro:property name="platform_length" value="0.4" />
+  <xacro:property name="platform_height" value="0.5"/>
+
+  <!-- Dimensions of kinect_model. -->
+  <xacro:property name="kinect_model_width" value="0.2" />
+  <xacro:property name="kinect_model_length" value="0.05" />
+  <xacro:property name="kinect_model_height" value="0.05"/>
+
+  <!-- Import all Gazebo-customisation elements, including Gazebo colours. -->
+  <xacro:include filename="$(find kinect_description)/urdf/kinect.gazebo" />
+
+  <!-- Import Rviz colours. -->
+  <xacro:include filename="$(find kinect_description)/urdf/materials.xacro" />
+  
+  <link name="world" />
+
+  <!-- Description of platform. -->
+  <link name="platform_link">
+    <collision>
+      <geometry>
+        <box size="${platform_width} ${platform_length} ${platform_height}" />
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.25" />
+    </collision>
+
+    <visual>
+      <geometry>
+        <box size="${platform_width} ${platform_length} ${platform_height}" /> 
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.25" />
+      <material name="grey" />
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <!-- Description of kinect. will be very basic -->
+  <link name="kinect_link">
+    <collision>
+      <geometry>
+        <box size="${kinect_model_width} ${kinect_model_length} ${kinect_model_height}" />
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.525" />
+    </collision>
+
+    <visual>
+      <geometry>
+        <box size="${kinect_model_width} ${kinect_model_length} ${kinect_model_height}" /> 
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.525" />
+      <material name="black" />
+    </visual>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia
+        ixx="1.0" ixy="0.0" ixz="0.0"
+        iyy="1.0" iyz="0.0"
+        izz="1.0" />
+    </inertial>
+  </link>
+
+  <!-- Description of camera.-->
+  <link name="sensor">
+    <collision>
+      <geometry>
+        <box size="${camera_link} ${camera_link} ${camera_link}"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <geometry>
+         <box size="${camera_link} ${camera_link} ${camera_link}"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.4875"/>
+       <material name="white" />
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </inertial>
+  </link>
+
+  <!-- Attach platform to world. -->
+  <joint name="platform_to_world" type="fixed">
+    <parent link="world" />
+    <child link="platform_link" />
+  </joint>
+
+  <!-- Attach kinect to platform -->
+  <joint name="kinect_to_platform" type="fixed">
+    <parent link="platform_link" />
+    <child link="kinect_link" />
+  </joint>
+
+  <!-- Attach sensor to the kinect. -->
+  <joint name="sensor_to_kinect" type="fixed">
+    <axis xyz="0 1 0" />
+    <!-- Determine measurements xyz. -->
+    <origin rpy="0 0 0" xyz="0.063 -0.035 0.035" />
+    <parent link="kinect_link" />
+    <child link="sensor" />
+  </joint>
+  
+</robot>
