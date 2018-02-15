@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Kinect_Interface.dir/src/interface.cpp.o  -o Kinect_Interface -Wl,-rpath,/home/wael/freenect2/lib /home/wael/freenect2/lib/libfreenect2.so 

@@ -1,2 +1,0 @@
-kinect_description:kinect_gazebo
--DCATKIN_DEVEL_PREFIX=/home/arq/wael/arq-teleop-robot/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/arq/wael/arq-teleop-robot/catkin_ws/install -G Unix Makefiles
