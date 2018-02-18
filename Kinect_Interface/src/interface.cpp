@@ -7,7 +7,6 @@
 using namespace std;
 
 int main() {
-
     Kinect kinect;
     kinect.initialize();
 }

@@ -31,6 +31,7 @@ ENDIF()
 
 INCLUDE_DIRECTORIES(
         ${freenect2_INCLUDE_DIR}
+        ${catkin_INCLUDE_DIR}
 )
 
 SET(Kinect_Interface_src
@@ -39,6 +40,7 @@ SET(Kinect_Interface_src
 
 SET(Kinect_Interface_LIBRARIES
         ${freenect2_LIBRARIES}
+        ${catkin_LIBRARIES}
         )
 
 SET(Kinect_Interface_DLLS
