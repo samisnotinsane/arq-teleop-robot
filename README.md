@@ -6,7 +6,7 @@ A simulation environment in gazebo equipped for exploring image classification o
 ## Using A Virtual Environment
 I recommend using [Virtualbox](https://www.virtualbox.org/wiki/Downloads) - Just be sure to install the guest additions and extension packs for your system if they are required.
 
-You can download [this ova](), which aims to have all the required software plus the ROS packages used for the simulation. It currently has the following installed and will be updated as work progresses:
+You can download [this ova](https://drive.google.com/file/d/1YD4u1dLc_PCFunNFaEXeKqiDsUFzpHGd/view?usp=sharing), which aims to have all the required software plus the ROS packages used for the simulation. It currently has the following installed and will be updated as work progresses:
 
 - [Ubuntu 14.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
 - [Ros Indigo](http://wiki.ros.org/indigo/Installation/Ubuntu)
