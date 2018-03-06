@@ -1,0 +1,8 @@
+prefix=/home/nnadozie/git/arq-teleop-robot/catkin_wsu/install
+
+Name: catkin_tools_prebuild
+Description: Description of catkin_tools_prebuild
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/nnadozie/git/arq-teleop-robot/catkin_wsu/install/lib 
+Requires: 

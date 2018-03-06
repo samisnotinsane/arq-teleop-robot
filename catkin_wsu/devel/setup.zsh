@@ -1,0 +1,1 @@
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/catkin_tools_prebuild/setup.zsh

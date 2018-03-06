@@ -1,0 +1,8 @@
+[31m[1mCMake Error[0m at /opt/ros/indigo/share/catkin/cmake/catkin_package.cmake:298 (message):
+  catkin_package() include dir 'include' does not exist relative to
+  '/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_position_publisher'
+[36mCall Stack (most recent call first):[0m
+  /opt/ros/indigo/share/catkin/cmake/catkin_package.cmake:100 (_catkin_package)
+  CMakeLists.txt:104 (catkin_package)
+
+

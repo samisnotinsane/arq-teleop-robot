@@ -1,0 +1,6 @@
+devel_space: /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel
+install: false
+install_space: /home/nnadozie/git/arq-teleop-robot/catkin_wsu/install
+profile: default
+source_space: /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src
+workspace: /home/nnadozie/git/arq-teleop-robot/catkin_wsu

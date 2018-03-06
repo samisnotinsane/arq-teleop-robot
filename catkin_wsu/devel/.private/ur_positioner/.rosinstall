@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/setup.sh
