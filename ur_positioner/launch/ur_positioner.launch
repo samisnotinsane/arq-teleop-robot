@@ -1,0 +1,4 @@
+<launch>
+	<!--node name="position_publisher" pkg="ur_positioner" type="ur_position_publisher_node" output="screen"/-->
+	<node name="positioner" pkg="ur_positioner" type="ur_positioner_node" output="screen"/>
+</launch>

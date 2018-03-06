@@ -1,0 +1,4 @@
+<launch>
+        <node name="position_publisher" pkg="ur_position_publisher" type="ur_position_publisher_node" output="screen"/>
+</launch>
+
