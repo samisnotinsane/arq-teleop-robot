@@ -1,4 +1,1 @@
-[35m[1mScanning dependencies of target ur_positioner_node
-[0m[100%] [32mBuilding CXX object CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o
-[0m[31m[1mLinking CXX executable /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node
-[0m[100%] Built target ur_positioner_node
+[100%] Built target ur_positioner_node

@@ -370,6 +370,54 @@ gtest_main/fast:
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+src/Algorithm.o: src/Algorithm.cpp.o
+.PHONY : src/Algorithm.o
+
+# target to build an object file
+src/Algorithm.cpp.o:
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o
+.PHONY : src/Algorithm.cpp.o
+
+src/Algorithm.i: src/Algorithm.cpp.i
+.PHONY : src/Algorithm.i
+
+# target to preprocess a source file
+src/Algorithm.cpp.i:
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.i
+.PHONY : src/Algorithm.cpp.i
+
+src/Algorithm.s: src/Algorithm.cpp.s
+.PHONY : src/Algorithm.s
+
+# target to generate assembly for a file
+src/Algorithm.cpp.s:
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.s
+.PHONY : src/Algorithm.cpp.s
+
+src/UrPositioner.o: src/UrPositioner.cpp.o
+.PHONY : src/UrPositioner.o
+
+# target to build an object file
+src/UrPositioner.cpp.o:
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o
+.PHONY : src/UrPositioner.cpp.o
+
+src/UrPositioner.i: src/UrPositioner.cpp.i
+.PHONY : src/UrPositioner.i
+
+# target to preprocess a source file
+src/UrPositioner.cpp.i:
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.i
+.PHONY : src/UrPositioner.cpp.i
+
+src/UrPositioner.s: src/UrPositioner.cpp.s
+.PHONY : src/UrPositioner.s
+
+# target to generate assembly for a file
+src/UrPositioner.cpp.s:
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.s
+.PHONY : src/UrPositioner.cpp.s
+
 src/ur_positioner_node.o: src/ur_positioner_node.cpp.o
 .PHONY : src/ur_positioner_node.o
 
@@ -424,6 +472,12 @@ help:
 	@echo "... ur_positioner_node"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... src/Algorithm.o"
+	@echo "... src/Algorithm.i"
+	@echo "... src/Algorithm.s"
+	@echo "... src/UrPositioner.o"
+	@echo "... src/UrPositioner.i"
+	@echo "... src/UrPositioner.s"
 	@echo "... src/ur_positioner_node.o"
 	@echo "... src/ur_positioner_node.i"
 	@echo "... src/ur_positioner_node.s"

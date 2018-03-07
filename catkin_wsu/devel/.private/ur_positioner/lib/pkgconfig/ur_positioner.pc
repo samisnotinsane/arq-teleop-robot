@@ -4,5 +4,5 @@ Name: ur_positioner
 Description: Description of ur_positioner
 Version: 0.0.0
 Cflags: -I/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/include
-Libs: -L/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib 
+Libs: -L/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib -lur_positioner
 Requires: roscpp

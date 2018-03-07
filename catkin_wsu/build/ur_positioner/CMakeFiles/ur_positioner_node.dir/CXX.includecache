@@ -6,10 +6,20 @@
 
 #IncludeRegexTransform: 
 
-/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/ur_positioner_node.cpp
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/include/ur_positioner/Algorithm.hpp
+
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/include/ur_positioner/UrPositioner.hpp
+ur_positioner/Algorithm.hpp
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/include/ur_positioner/ur_positioner/Algorithm.hpp
 ros/ros.h
 -
 std_msgs/String.h
+-
+
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/UrPositioner.cpp
+ur_positioner/UrPositioner.hpp
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/ur_positioner/UrPositioner.hpp
+string
 -
 
 /opt/ros/indigo/include/XmlRpcDecl.h

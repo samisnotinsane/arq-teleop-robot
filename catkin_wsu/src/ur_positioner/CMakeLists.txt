@@ -103,7 +103,7 @@ find_package(catkin REQUIRED
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
    INCLUDE_DIRS include
-#  LIBRARIES ur_positioner
+   LIBRARIES ur_positioner
    CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
@@ -132,7 +132,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/ur_positioner_node)
+add_executable(${PROJECT_NAME}_node src/ur_positioner_node.cpp src/UrPositioner.cpp src/Algorithm.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

@@ -1,5 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o"
+  "CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o"
+  "CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o"
   "/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node.pdb"
   "/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node"
 )

@@ -109,7 +109,7 @@ if(NOT "/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/include
   endforeach()
 endif()
 
-set(libraries "")
+set(libraries "ur_positioner")
 foreach(library ${libraries})
   # keep build configuration keywords, target names and absolute libraries as-is
   if("${library}" MATCHES "^(debug|optimized|general)$")

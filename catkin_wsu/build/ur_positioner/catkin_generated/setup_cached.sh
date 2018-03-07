@@ -8,6 +8,8 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/nnadozie/git/arq-teleop-robot/catkin_wsu/build/ur_positioner"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner:$ROS_PACKAGE_PATH"

@@ -5,7 +5,7 @@ int main(int argc, char **argv) {
         ros::init(argc, argv, "ur_position_publisher_node");
         ros::NodeHandle nh;
         ros::Publisher positionPublisher =
-                nh.advertise<std_msgs::String>("position", 1);
+                nh.advertise<std_msgs::String>("/positioner/position", 1);
         ros::Rate loopRate(10);
 
         unsigned int count = 0;

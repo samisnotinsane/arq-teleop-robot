@@ -72,14 +72,64 @@ CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o.provides: CMakeFi
 
 CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o.provides.build: CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o
 
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o: CMakeFiles/ur_positioner_node.dir/flags.make
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o: /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/UrPositioner.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nnadozie/git/arq-teleop-robot/catkin_wsu/build/ur_positioner/CMakeFiles $(CMAKE_PROGRESS_2)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o -c /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/UrPositioner.cpp
+
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/UrPositioner.cpp > CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.i
+
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/UrPositioner.cpp -o CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.s
+
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.requires:
+.PHONY : CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.requires
+
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.provides: CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.provides.build
+.PHONY : CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.provides
+
+CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.provides.build: CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o
+
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o: CMakeFiles/ur_positioner_node.dir/flags.make
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o: /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/Algorithm.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nnadozie/git/arq-teleop-robot/catkin_wsu/build/ur_positioner/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o -c /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/Algorithm.cpp
+
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/Algorithm.cpp > CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.i
+
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_positioner/src/Algorithm.cpp -o CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.s
+
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.requires:
+.PHONY : CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.requires
+
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.provides: CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ur_positioner_node.dir/build.make CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.provides.build
+.PHONY : CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.provides
+
+CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.provides.build: CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o
+
 # Object files for target ur_positioner_node
 ur_positioner_node_OBJECTS = \
-"CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o"
+"CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o" \
+"CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o" \
+"CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o"
 
 # External object files for target ur_positioner_node
 ur_positioner_node_EXTERNAL_OBJECTS =
 
 /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node: CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node: CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o
+/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node: CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o
 /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node: CMakeFiles/ur_positioner_node.dir/build.make
 /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node: /opt/ros/indigo/lib/libroscpp.so
 /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node: /usr/lib/x86_64-linux-gnu/libboost_signals.so
@@ -107,6 +157,8 @@ CMakeFiles/ur_positioner_node.dir/build: /home/nnadozie/git/arq-teleop-robot/cat
 .PHONY : CMakeFiles/ur_positioner_node.dir/build
 
 CMakeFiles/ur_positioner_node.dir/requires: CMakeFiles/ur_positioner_node.dir/src/ur_positioner_node.cpp.o.requires
+CMakeFiles/ur_positioner_node.dir/requires: CMakeFiles/ur_positioner_node.dir/src/UrPositioner.cpp.o.requires
+CMakeFiles/ur_positioner_node.dir/requires: CMakeFiles/ur_positioner_node.dir/src/Algorithm.cpp.o.requires
 .PHONY : CMakeFiles/ur_positioner_node.dir/requires
 
 CMakeFiles/ur_positioner_node.dir/clean:
