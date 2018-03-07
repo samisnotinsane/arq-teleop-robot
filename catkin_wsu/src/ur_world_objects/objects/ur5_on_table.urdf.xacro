@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="ur5" >
+
+  <!-- common stuff -->
+  <!--xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /-->
+  <property name="ur_x_offset" value="0.2" />
+  <property name="ur_y_offset" value="-0.2" />
+  <property name="ur_z_offset" value="0.025" />
+
+ 
+
+  <!-- ur5 -->
+  <xacro:include filename="$(find ur_world_objects)/objects/ur5_robot_on_table.xacro" />
+
+  <!-- Table -->
+  <xacro:include filename="$(find ur_world_objects)/objects/table.xacro"/>
+
+  <!-- arm -->
+  <!--xacro:ur5_robot prefix="" joint_limited="false"/-->
+
+  <link name="world" />
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "table_top_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <joint name="ur_to_table" type="fixed">
+    <parent link="table_top_link" />
+    <child link = "base_link" />
+    <origin xyz="${ur_x_offset+table_x-table_width/2} ${ur_y_offset+table_y+table_depth/2} ${ur_z_offset+table_z+table_height}" rpy="0.0 0.0 0.0" />
+  </joint>
+
+</robot>
+
