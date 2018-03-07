@@ -4,14 +4,14 @@
 
   <!-- common stuff -->
   <!--xacro:include filename="$(find ur_description)/urdf/common.gazebo.xacro" /-->
-  <property name="ur_x_offset" value="0.2" />
-  <property name="ur_y_offset" value="-0.2" />
-  <property name="ur_z_offset" value="0.025" />
+  <property name="ur_x_table_offset" value="0.2" />
+  <property name="ur_y_table_offset" value="-0.2" />
+  <property name="ur_z_table_offset" value="0.025" />
 
  
 
   <!-- ur5 -->
-  <xacro:include filename="$(find ur_world_objects)/objects/ur5_robot_on_table.xacro" />
+  <xacro:include filename="$(find ur_world_objects)/objects/ur5_robot.xacro" />
 
   <!-- Table -->
   <xacro:include filename="$(find ur_world_objects)/objects/table.xacro"/>
@@ -30,7 +30,7 @@
   <joint name="ur_to_table" type="fixed">
     <parent link="table_top_link" />
     <child link = "base_link" />
-    <origin xyz="${ur_x_offset+table_x-table_width/2} ${ur_y_offset+table_y+table_depth/2} ${ur_z_offset+table_z+table_height}" rpy="0.0 0.0 0.0" />
+    <origin xyz="${ur_x_table_offset+table_x-table_width/2} ${ur_y_table_offset+table_y+table_depth/2} ${ur_z_table_offset+table_z+table_height}" rpy="0.0 0.0 0.0" />
   </joint>
 
 </robot>
