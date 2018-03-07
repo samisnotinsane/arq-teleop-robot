@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<robot name="table" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find ur_world_objects)/objects/table.urdf.xacro" />
+    <xacro:table prefix=""/>
+</robot>
