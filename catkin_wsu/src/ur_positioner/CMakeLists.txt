@@ -10,10 +10,16 @@ add_definitions(--std=c++11)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED
 	COMPONENTS roscpp
+	moveit_core
+    	moveit_ros_planning
+    	moveit_ros_planning_interface
+    	pluginlib
+    	cmake_modules
+    	geometric_shapes
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+ find_package(Boost REQUIRED COMPONENTS system filesystem date_time thread)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -104,9 +110,15 @@ find_package(catkin REQUIRED
 catkin_package(
    INCLUDE_DIRS include
    LIBRARIES ur_positioner
-   CATKIN_DEPENDS roscpp
+   CATKIN_DEPENDS
+	roscpp
+	moveit_core
+	moveit_ros_planning_interface
+	interactive_markers
 #  DEPENDS system_lib
 )
+
+find_package(Eigen REQUIRED)
 
 ###########
 ## Build ##
@@ -114,6 +126,8 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN_INCLUDE_DIRS})
+
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
