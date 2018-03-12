@@ -58,3 +58,24 @@ If you chose to use the ova file provided, it already has UR5 ros packages insta
 If you chose not to use the provided ova, the source code for the tensorflow model can be found [here](https://github.com/shunchan0677/Tensorflow_in_ROS).
 
 You can watch this [video](https://1drv.ms/v/s!AjMXzGx2ztdEgX9iOoT1-66_13xy), or follow the instructions in that repo to get things running
+
+# Using the packages in this project
+There are currently three packages:
+#### ur_positioner:
+
+Used to move the UR5 arm to a position given over a topic. The topic can be configured in the package's config.yaml file by updating subscriber_topic, or setting the parameter in the parameter server.
+
+To launch run `roslaunch ur_positioner ur_positioner.launch`
+
+#### ur_position_publisher:
+
+Can be used to publish positions to the ur_positioner when the control loop isn't closed.
+
+To launch run `roslaunch ur_position_publisher ur_position_publisher.launch`
+
+#### ur_world_objects:
+
+Package containing useful objects such as cups and tables.
+
+These can be located using $(find ur_world_objects)/objects/<object_urdf>
+
