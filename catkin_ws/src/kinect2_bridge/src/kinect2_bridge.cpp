@@ -396,10 +396,12 @@ private:
   void initTopics(const int32_t queueSize, const std::string &base_name)
   {
     std::vector<std::string> topics(COUNT);
+
+    //SD quality IR topic published
     topics[IR_SD] = K2_TOPIC_SD K2_TOPIC_IMAGE_IR;
-
+    //SD quality depth topic published
     topics[DEPTH_SD] = K2_TOPIC_SD K2_TOPIC_IMAGE_DEPTH;
-
+    //HD quality color topic published
     topics[COLOR_HD] = K2_TOPIC_HD K2_TOPIC_IMAGE_COLOR;
 
     imagePubs.resize(COUNT);
