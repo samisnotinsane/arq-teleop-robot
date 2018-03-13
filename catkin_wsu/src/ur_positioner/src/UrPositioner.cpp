@@ -15,7 +15,15 @@ namespace ur_positioner {
 		subscriber_ = nodeHandle_.subscribe(subscriberTopic_, 1, &UrPositioner::topicCallback, this);
 		ROS_INFO("Successfully launched node.");
 		
-		moveit::planning_interface::MoveGroup group("ur_arm");		
+		moveit::planning_interface::MoveGroup group("manipulator");
+		/**
+		<joint name="elbow_joint" value="0" />
+		<joint name="shoulder_lift_joint" value="0" />
+		<joint name="shoulder_pan_joint" value="0" />
+		<joint name="wrist_1_joint" value="0" />
+		<joint name="wrist_2_joint" value="0" />
+		<joint name="wrist_3_joint" value="0" />
+		**/		
 	}
 
 
