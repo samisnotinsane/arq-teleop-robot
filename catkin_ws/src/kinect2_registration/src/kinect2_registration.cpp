@@ -47,8 +47,6 @@ bool DepthRegistration::init(const cv::Mat &cameraMatrixRegistered, const cv::Si
   this->zNear = zNear;
   this->zFar = zFar;
 
-  //cv::initUndistortRectifyMap(cameraMatrixDepth, distortionDepth, cv::Mat(), cameraMatrixRegistered, sizeRegistered, CV_32FC1, mapX, mapY);
-
   return init(deviceId);
 }
 

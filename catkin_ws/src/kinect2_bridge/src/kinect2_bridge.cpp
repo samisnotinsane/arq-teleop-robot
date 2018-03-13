@@ -260,7 +260,7 @@ private:
     priv_nh.param("queue_size", queueSize, 2);
     priv_nh.param("bilateral_filter", bilateral_filter, true);
     priv_nh.param("edge_aware_filter", edge_aware_filter, true);
-    priv_nh.param("publish_tf", publishTF, false);
+    priv_nh.param("publish_tf", publishTF, true);
     priv_nh.param("base_name_tf", baseNameTF, base_name);
     priv_nh.param("worker_threads", worker_threads, 4);
 
@@ -310,10 +310,8 @@ private:
     initConfig(bilateral_filter, edge_aware_filter, minDepth, maxDepth);
 
     initCalibration(calib_path, sensor);
-    OUT_INFO("after calibration");
     if(!initRegistration(reg_method, reg_dev, maxDepth))
     {
-      OUT_INFO("after registration in if");
       if(!device->close())
       {
         OUT_ERROR("could not close device!");
@@ -322,7 +320,6 @@ private:
       delete listenerColor;
       return false;
     }
-    OUT_INFO("after registration out if");
     createCameraInfo();
     initTopics(queueSize, base_name);
 
@@ -333,33 +330,12 @@ private:
   {
     DepthRegistration::Method reg;
 
-    if(method == "default")
-    {
-      reg = DepthRegistration::DEFAULT;
-    }
-    else if(method == "cpu")
-    {
 #ifdef DEPTH_REG_CPU
       reg = DepthRegistration::CPU;
 #else
       OUT_ERROR("CPU registration is not available!");
       return false;
 #endif
-    }
-    else if(method == "opencl")
-    {
-#ifdef DEPTH_REG_OPENCL
-      reg = DepthRegistration::OPENCL;
-#else
-      OUT_ERROR("OpenCL registration is not available!");
-      return false;
-#endif
-    }
-    else
-    {
-      OUT_ERROR("Unknown registration method: " << method);
-      return false;
-    }
 
     depthRegLowRes = DepthRegistration::New(reg);
     depthRegHighRes = DepthRegistration::New(reg);
@@ -421,24 +397,10 @@ private:
   {
     std::vector<std::string> topics(COUNT);
     topics[IR_SD] = K2_TOPIC_SD K2_TOPIC_IMAGE_IR;
-    topics[IR_SD_RECT] = K2_TOPIC_SD K2_TOPIC_IMAGE_IR K2_TOPIC_IMAGE_RECT;
 
     topics[DEPTH_SD] = K2_TOPIC_SD K2_TOPIC_IMAGE_DEPTH;
-    topics[DEPTH_SD_RECT] = K2_TOPIC_SD K2_TOPIC_IMAGE_DEPTH K2_TOPIC_IMAGE_RECT;
-    topics[DEPTH_HD] = K2_TOPIC_HD K2_TOPIC_IMAGE_DEPTH K2_TOPIC_IMAGE_RECT;
-    topics[DEPTH_QHD] = K2_TOPIC_QHD K2_TOPIC_IMAGE_DEPTH K2_TOPIC_IMAGE_RECT;
-
-    topics[COLOR_SD_RECT] = K2_TOPIC_SD K2_TOPIC_IMAGE_COLOR K2_TOPIC_IMAGE_RECT;
 
     topics[COLOR_HD] = K2_TOPIC_HD K2_TOPIC_IMAGE_COLOR;
-    topics[COLOR_HD_RECT] = K2_TOPIC_HD K2_TOPIC_IMAGE_COLOR K2_TOPIC_IMAGE_RECT;
-    topics[COLOR_QHD] = K2_TOPIC_QHD K2_TOPIC_IMAGE_COLOR;
-    topics[COLOR_QHD_RECT] = K2_TOPIC_QHD K2_TOPIC_IMAGE_COLOR K2_TOPIC_IMAGE_RECT;
-
-    topics[MONO_HD] = K2_TOPIC_HD K2_TOPIC_IMAGE_MONO;
-    topics[MONO_HD_RECT] = K2_TOPIC_HD K2_TOPIC_IMAGE_MONO K2_TOPIC_IMAGE_RECT;
-    topics[MONO_QHD] = K2_TOPIC_QHD K2_TOPIC_IMAGE_MONO;
-    topics[MONO_QHD_RECT] = K2_TOPIC_QHD K2_TOPIC_IMAGE_MONO K2_TOPIC_IMAGE_RECT;
 
     imagePubs.resize(COUNT);
     compressedPubs.resize(COUNT);
@@ -597,17 +559,6 @@ private:
     cameraMatrixLowRes.at<double>(1, 1) /= 2;
     cameraMatrixLowRes.at<double>(0, 2) /= 2;
     cameraMatrixLowRes.at<double>(1, 2) /= 2;
-
-    OUT_INFO("Before bug");
-    //const int mapType = CV_16SC2;
-    //OUT_INFO("Test 1.1");
-    //cv::initUndistortRectifyMap(cameraMatrixColor, distortionColor, cv::Mat(), cameraMatrixColor, sizeColor, mapType, map1Color, map2Color);
-    //OUT_INFO("Test 1.2");
-    //cv::initUndistortRectifyMap(cameraMatrixIr, distortionIr, cv::Mat(), cameraMatrixIr, sizeIr, mapType, map1Ir, map2Ir);
-    //OUT_INFO("Test 1.3");
-    //cv::initUndistortRectifyMap(cameraMatrixColor, distortionColor, cv::Mat(), cameraMatrixLowRes, sizeLowRes, mapType, map1LowRes, map2LowRes);
-    //OUT_INFO("Test 1.4");
-    OUT_INFO("After bug");
 
     OUT_DEBUG("camera parameters used:");
     OUT_DEBUG("camera matrix color:" FG_CYAN << std::endl << cameraMatrixColor << NO_COLOR);

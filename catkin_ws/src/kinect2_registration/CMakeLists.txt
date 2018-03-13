@@ -49,36 +49,6 @@ else()
   set(DEPTH_REG_CPU OFF)
 endif()
 
-if(OpenCL_FOUND)
-  message(STATUS "OpenCL based depth registration enabled")
-  set(EXPORTED_DEPENDENCIES OpenCL)
-  add_definitions( -fexceptions )
-
-  if(UNIX AND NOT APPLE)
-    include(CheckOpenCLICDLoader)
-    if(OpenCL_C_WORKS AND NOT OpenCL_CXX_WORKS)
-      set(KINECT2_OPENCL_ICD_LOADER_IS_OLD 1)
-      message(WARNING "Your libOpenCL.so is incompatible with CL/cl.h. Install ocl-icd-opencl-dev to update libOpenCL.so?")
-    endif()
-
-    # Major Linux distro stable releases have buggy OpenCL ICD loader.
-    # The workaround of disabling exceptions can only be set up during compile time.
-    # Diabling it for all should be harmless. The flag is the same for GCC/Clang/ICC.
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
-  endif()
-  include_directories(${OpenCL_INCLUDE_DIRS})
-
-  set(DEPTH_REG_OPENCL ON)
-  add_definitions(-DDEPTH_REG_OPENCL)
-else()
-  message(STATUS "OpenCL based depth registration disabled")
-  set(DEPTH_REG_OPENCL OFF)
-endif()
-
-if(NOT DEPTH_REG_CPU AND NOT DEPTH_REG_OPENCL)
-  message(FATAL_ERROR "No registration method available!")
-endif()
-
 ################################################
 ## Declare ROS messages, services and actions ##
 ################################################
