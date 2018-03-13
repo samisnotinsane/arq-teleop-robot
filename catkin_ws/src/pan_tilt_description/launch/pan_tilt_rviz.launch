@@ -1,3 +1,8 @@
+<!--
+  Queen Mary University of London, 2018
+  Author: Sameen Islam (s.islam@se14.qmul.ac.uk)
+-->
+
 <launch>
 
   <arg name="model" default="$(find pan_tilt_description)/urdf/pan_tilt.urdf.xacro" />
@@ -6,9 +11,16 @@
 
   <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
   <param name="use_gui" value="$(arg gui)"/>
-
+  <param name="robot/name" value="pan-tilt"/>
+ 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+    <param name="port" value="9090" />
+  </include>
+
+  <node name="file_server" pkg="file_server" type="file_server" output="screen" />
 
 </launch>
