@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 	
-	  <param name="robot_description_semantic" textfile="$(find ur5_moveit_config)/config/ur5.srdf" />
+	  <!--param name="robot_description_semantic" textfile="$(find ur_world_objects)/objects/custom_ur5.srdf" /-->
 
 	<node name="positioner" pkg="ur_positioner" type="ur_positioner_node" output="screen">
 		<rosparam command="load"
