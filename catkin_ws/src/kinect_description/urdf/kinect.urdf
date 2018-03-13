@@ -154,6 +154,26 @@
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </inertial>
   </link>
+  <!-- Description of camera.-->
+  <link name="camera">
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.4875"/>
+      <material name="white"/>
+    </visual>
+    <inertial>
+      <mass value="1e-5"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
   <!-- Attach platform to world. -->
   <joint name="platform_to_world" type="fixed">
     <parent link="world"/>
@@ -171,5 +191,13 @@
     <origin rpy="0 0 0" xyz="0.063 -0.035 0.035"/>
     <parent link="kinect_link"/>
     <child link="sensor"/>
+  </joint>
+  <!-- Attach camera to the kinect. -->
+  <joint name="camera_to_kinect" type="fixed">
+    <axis xyz="0 1 0"/>
+    <!-- Determine measurements xyz. -->
+    <origin rpy="0 0 0" xyz="-0.063 -0.035 0.035"/>
+    <parent link="kinect_link"/>
+    <child link="camera"/>
   </joint>
 </robot>

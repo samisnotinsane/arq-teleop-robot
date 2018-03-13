@@ -12,7 +12,6 @@
     </plugin>
   </gazebo>
 
-  <!-- Make color of body and head red. -->
   <gazebo reference="platform_link">
     <material>Gazebo/Grey</material>
   </gazebo>
@@ -21,13 +20,16 @@
     <material>Gazebo/Black</material>
   </gazebo>
 
-  <!-- Make colour of right camera red. -->
   <gazebo reference="sensor">
     <material>Gazebo/White</material>
   </gazebo>
+  
+  <gazebo reference="camera">
+    <material>Gazebo/White</material>
+  </gazebo>
 
-  <gazebo reference="sensor">
-      <sensor type="camera" name="kinect_sensor">
+  <gazebo reference="camera">
+      <sensor type="camera" name="kinect_camera">
         <update_rate>30.0</update_rate>
         <camera name="kinect">
           <horizontal_fov>1.3962634</horizontal_fov>
@@ -52,7 +54,7 @@
         <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
-          <cameraName>kinect/kinect_sensor</cameraName>
+          <cameraName>kinect/kinect_camera</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
           <frameName>camera_link</frameName>
@@ -62,6 +64,54 @@
           <distortionK3>0.0</distortionK3>
           <distortionT1>0.0</distortionT1>
           <distortionT2>0.0</distortionT2>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+    <gazebo reference="sensor">
+      <sensor type="depth" name="kinect_sensor">
+        <update_rate>30.0</update_rate>
+        <camera name="kinect">
+          <horizontal_fov>1.3962634</horizontal_fov>
+          <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <!-- Noise is sampled independently per pixel on each frame.
+                That pixel's noise value is added to each of its color
+                channels, which at that point lie in the range [0,1]. -->
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>kinect/kinect_sensor</cameraName>
+          <imageTopicName>depth_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <depthImageTopicName>depth_points_info</depthImageTopicName>
+          <pointCloudTopicName>depth_points</pointCloudTopicName>
+          <frameName>camera_link</frameName>
+          <pointCloudCutoff>0.05</pointCloudCutoff>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
         </plugin>
       </sensor>
     </gazebo>
