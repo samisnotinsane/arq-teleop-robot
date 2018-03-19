@@ -45,8 +45,6 @@
 
 #include <tf/transform_broadcaster.h>
 
-#include <compressed_depth_image_transport/compression_common.h>
-
 #include <libfreenect2/libfreenect2.hpp>
 #include <libfreenect2/frame_listener_impl.h>
 #include <libfreenect2/packet_pipeline.h>
@@ -60,8 +58,8 @@
 class Kinect2Bridge
 {
 private:
-  std::vector<int> compressionParams;
-  std::string compression16BitExt, compression16BitString, baseNameTF;
+
+  std::string baseNameTF;
 
   cv::Size sizeColor, sizeIr, sizeLowRes;
   libfreenect2::Frame color;
@@ -104,18 +102,13 @@ private:
     DEPTH_SD,
     DEPTH_SD_RECT,
     DEPTH_HD,
-    DEPTH_QHD,
 
     COLOR_SD_RECT,
     COLOR_HD,
     COLOR_HD_RECT,
-    COLOR_QHD,
-    COLOR_QHD_RECT,
 
     MONO_HD,
     MONO_HD_RECT,
-    MONO_QHD,
-    MONO_QHD_RECT,
 
     COUNT
   };
@@ -123,14 +116,12 @@ private:
   enum Status
   {
     UNSUBCRIBED = 0,
-    RAW,
-    COMPRESSED,
-    BOTH
+    RAW
   };
 
-  std::vector<ros::Publisher> imagePubs, compressedPubs;
-  ros::Publisher infoHDPub, infoQHDPub, infoIRPub;
-  sensor_msgs::CameraInfo infoHD, infoQHD, infoIR;
+  std::vector<ros::Publisher> imagePubs;
+  ros::Publisher infoHDPub, infoIRPub;
+  sensor_msgs::CameraInfo infoHD, infoIR;
   std::vector<Status> status;
 
 public:
@@ -211,9 +202,7 @@ public:
     for(size_t i = 0; i < COUNT; ++i)
     {
       imagePubs[i].shutdown();
-      compressedPubs[i].shutdown();
       infoHDPub.shutdown();
-      infoQHDPub.shutdown();
       infoIRPub.shutdown();
     }
 
@@ -295,8 +284,6 @@ private:
       calib_path += '/';
     }
 
-    initCompression(jpeg_quality, png_level, use_png);
-
     if(!initPipeline(depth_method, depth_dev))
     {
       return false;
@@ -370,29 +357,6 @@ private:
     device->setConfiguration(config);
   }
 
-  void initCompression(const int32_t jpegQuality, const int32_t pngLevel, const bool use_png)
-  {
-    compressionParams.resize(7, 0);
-    compressionParams[0] = CV_IMWRITE_JPEG_QUALITY;
-    compressionParams[1] = jpegQuality;
-    compressionParams[2] = CV_IMWRITE_PNG_COMPRESSION;
-    compressionParams[3] = pngLevel;
-    compressionParams[4] = CV_IMWRITE_PNG_STRATEGY;
-    compressionParams[5] = CV_IMWRITE_PNG_STRATEGY_RLE;
-    compressionParams[6] = 0;
-
-    if(use_png)
-    {
-      compression16BitExt = ".png";
-      compression16BitString = sensor_msgs::image_encodings::TYPE_16UC1 + "; png compressed";
-    }
-    else
-    {
-      compression16BitExt = ".tif";
-      compression16BitString = sensor_msgs::image_encodings::TYPE_16UC1 + "; tiff compressed";
-    }
-  }
-
   void initTopics(const int32_t queueSize, const std::string &base_name)
   {
     std::vector<std::string> topics(COUNT);
@@ -405,16 +369,13 @@ private:
     topics[COLOR_HD] = K2_TOPIC_HD K2_TOPIC_IMAGE_COLOR;
 
     imagePubs.resize(COUNT);
-    compressedPubs.resize(COUNT);
     ros::SubscriberStatusCallback cb = boost::bind(&Kinect2Bridge::callbackStatus, this);
 
     for(size_t i = 0; i < COUNT; ++i)
     {
       imagePubs[i] = nh.advertise<sensor_msgs::Image>(base_name + topics[i], queueSize, cb, cb);
-      compressedPubs[i] = nh.advertise<sensor_msgs::CompressedImage>(base_name + topics[i] + K2_TOPIC_COMPRESSED, queueSize, cb, cb);
     }
     infoHDPub = nh.advertise<sensor_msgs::CameraInfo>(base_name + K2_TOPIC_HD + K2_TOPIC_INFO, queueSize, cb, cb);
-    infoQHDPub = nh.advertise<sensor_msgs::CameraInfo>(base_name + K2_TOPIC_QHD + K2_TOPIC_INFO, queueSize, cb, cb);
     infoIRPub = nh.advertise<sensor_msgs::CameraInfo>(base_name + K2_TOPIC_SD + K2_TOPIC_INFO, queueSize, cb, cb);
   }
 
@@ -651,7 +612,6 @@ private:
 
     createCameraInfo(sizeColor, cameraMatrixColor, distortionColor, colorMatArg, projColor, infoHD);
     createCameraInfo(sizeIr, cameraMatrixIr, distortionIr, IrMatArg, projIr, infoIR);
-    createCameraInfo(sizeLowRes, cameraMatrixLowRes, distortionColor, lowResMatArg, projLowRes, infoQHD);
   }
 
   void createCameraInfo(const cv::Size &size, const cv::Mat &cameraMatrix, const cv::Mat &distortion, const cv::Mat &rotation, const cv::Mat &projection, sensor_msgs::CameraInfo &cameraInfo) const
@@ -757,10 +717,6 @@ private:
       {
         s = RAW;
       }
-      if(compressedPubs[i].getNumSubscribers() > 0)
-      {
-        s = s == RAW ? BOTH : COMPRESSED;
-      }
 
       if(i <= COLOR_SD_RECT && s != UNSUBCRIBED)
       {
@@ -773,7 +729,7 @@ private:
 
       status[i] = s;
     }
-    if(infoHDPub.getNumSubscribers() > 0 || infoQHDPub.getNumSubscribers() > 0)
+    if(infoHDPub.getNumSubscribers() > 0)
     {
       isSubscribedColor = true;
     }
@@ -936,7 +892,7 @@ private:
 
     frame = frameIrDepth++;
 
-    if(status[COLOR_SD_RECT] || status[DEPTH_SD] || status[DEPTH_SD_RECT] || status[DEPTH_QHD] || status[DEPTH_HD])
+    if(status[COLOR_SD_RECT] || status[DEPTH_SD] || status[DEPTH_SD_RECT] || status[DEPTH_HD])
     {
       cv::Mat(depthFrame->height, depthFrame->width, CV_32FC1, depthFrame->data).copyTo(depth);
     }
@@ -1006,8 +962,8 @@ private:
       this->color.format = colorFrame->format;
       lockRegSD.unlock();
     }
-    if(status[COLOR_HD] || status[COLOR_HD_RECT] || status[COLOR_QHD] || status[COLOR_QHD_RECT] ||
-       status[MONO_HD] || status[MONO_HD_RECT] || status[MONO_QHD] || status[MONO_QHD_RECT])
+    if(status[COLOR_HD] || status[COLOR_HD_RECT] ||
+       status[MONO_HD] || status[MONO_HD_RECT])
     {
       cv::Mat tmp;
       cv::flip(color, tmp, 1);
@@ -1118,7 +1074,7 @@ private:
       depth.convertTo(images[DEPTH_SD], CV_16U, 1);
       cv::flip(images[DEPTH_SD], images[DEPTH_SD], 1);
     }
-    if(status[DEPTH_SD_RECT] || status[DEPTH_QHD] || status[DEPTH_HD])
+    if(status[DEPTH_SD_RECT] || status[DEPTH_HD])
     {
       depth.convertTo(depthShifted, CV_16U, 1, depthShift);
       cv::flip(depthShifted, depthShifted, 1);
@@ -1126,12 +1082,6 @@ private:
     if(status[DEPTH_SD_RECT])
     {
       cv::remap(depthShifted, images[DEPTH_SD_RECT], map1Ir, map2Ir, cv::INTER_NEAREST);
-    }
-    if(status[DEPTH_QHD])
-    {
-      lockRegLowRes.lock();
-      depthRegLowRes->registerDepth(depthShifted, images[DEPTH_QHD]);
-      lockRegLowRes.unlock();
     }
     if(status[DEPTH_HD])
     {
@@ -1148,14 +1098,6 @@ private:
     {
       cv::remap(images[COLOR_HD], images[COLOR_HD_RECT], map1Color, map2Color, cv::INTER_AREA);
     }
-    if(status[COLOR_QHD] || status[MONO_QHD])
-    {
-      cv::resize(images[COLOR_HD], images[COLOR_QHD], sizeLowRes, 0, 0, cv::INTER_AREA);
-    }
-    if(status[COLOR_QHD_RECT] || status[MONO_QHD_RECT])
-    {
-      cv::remap(images[COLOR_HD], images[COLOR_QHD_RECT], map1LowRes, map2LowRes, cv::INTER_AREA);
-    }
 
     // MONO
     if(status[MONO_HD])
@@ -1166,21 +1108,12 @@ private:
     {
       cv::cvtColor(images[COLOR_HD_RECT], images[MONO_HD_RECT], CV_BGR2GRAY);
     }
-    if(status[MONO_QHD])
-    {
-      cv::cvtColor(images[COLOR_QHD], images[MONO_QHD], CV_BGR2GRAY);
-    }
-    if(status[MONO_QHD_RECT])
-    {
-      cv::cvtColor(images[COLOR_QHD_RECT], images[MONO_QHD_RECT], CV_BGR2GRAY);
-    }
   }
 
   void publishImages(const std::vector<cv::Mat> &images, const std_msgs::Header &header, const std::vector<Status> &status, const size_t frame, size_t &pubFrame, const size_t begin, const size_t end)
   {
     std::vector<sensor_msgs::ImagePtr> imageMsgs(COUNT);
-    std::vector<sensor_msgs::CompressedImagePtr> compressedMsgs(COUNT);
-    sensor_msgs::CameraInfoPtr infoHDMsg,  infoQHDMsg,  infoIRMsg;
+    sensor_msgs::CameraInfoPtr infoHDMsg,  infoIRMsg;
     std_msgs::Header _header = header;
 
     if(begin < COLOR_HD)
@@ -1198,10 +1131,6 @@ private:
       infoHDMsg = sensor_msgs::CameraInfoPtr(new sensor_msgs::CameraInfo);
       *infoHDMsg = infoHD;
       infoHDMsg->header = _header;
-
-      infoQHDMsg = sensor_msgs::CameraInfoPtr(new sensor_msgs::CameraInfo);
-      *infoQHDMsg = infoQHD;
-      infoQHDMsg->header = _header;
 
     }
 
@@ -1224,16 +1153,6 @@ private:
         imageMsgs[i] = sensor_msgs::ImagePtr(new sensor_msgs::Image);
         createImage(images[i], _header, Image(i), *imageMsgs[i]);
         break;
-      case COMPRESSED:
-        compressedMsgs[i] = sensor_msgs::CompressedImagePtr(new sensor_msgs::CompressedImage);
-        createCompressed(images[i], _header, Image(i), *compressedMsgs[i]);
-        break;
-      case BOTH:
-        imageMsgs[i] = sensor_msgs::ImagePtr(new sensor_msgs::Image);
-        compressedMsgs[i] = sensor_msgs::CompressedImagePtr(new sensor_msgs::CompressedImage);
-        createImage(images[i], _header, Image(i), *imageMsgs[i]);
-        createCompressed(images[i], _header, Image(i), *compressedMsgs[i]);
-        break;
       }
     }
 
@@ -1251,13 +1170,6 @@ private:
       case RAW:
         imagePubs[i].publish(imageMsgs[i]);
         break;
-      case COMPRESSED:
-        compressedPubs[i].publish(compressedMsgs[i]);
-        break;
-      case BOTH:
-        imagePubs[i].publish(imageMsgs[i]);
-        compressedPubs[i].publish(compressedMsgs[i]);
-        break;
       }
     }
 
@@ -1273,10 +1185,6 @@ private:
       if(infoHDPub.getNumSubscribers() > 0)
       {
         infoHDPub.publish(infoHDMsg);
-      }
-      if(infoQHDPub.getNumSubscribers() > 0)
-      {
-        infoQHDPub.publish(infoQHDMsg);
       }
     }
 
@@ -1297,20 +1205,15 @@ private:
     case DEPTH_SD:
     case DEPTH_SD_RECT:
     case DEPTH_HD:
-    case DEPTH_QHD:
       msgImage.encoding = sensor_msgs::image_encodings::TYPE_16UC1;
       break;
     case COLOR_SD_RECT:
     case COLOR_HD:
     case COLOR_HD_RECT:
-    case COLOR_QHD:
-    case COLOR_QHD_RECT:
       msgImage.encoding = sensor_msgs::image_encodings::BGR8;
       break;
     case MONO_HD:
     case MONO_HD_RECT:
-    case MONO_QHD:
-    case MONO_QHD_RECT:
       msgImage.encoding = sensor_msgs::image_encodings::TYPE_8UC1;
       break;
     case COUNT:
@@ -1324,41 +1227,6 @@ private:
     msgImage.step = step;
     msgImage.data.resize(size);
     memcpy(msgImage.data.data(), image.data, size);
-  }
-
-  void createCompressed(const cv::Mat &image, const std_msgs::Header &header, const Image type, sensor_msgs::CompressedImage &msgImage) const
-  {
-    msgImage.header = header;
-
-    switch(type)
-    {
-    case IR_SD:
-    case IR_SD_RECT:
-    case DEPTH_SD:
-    case DEPTH_SD_RECT:
-    case DEPTH_HD:
-    case DEPTH_QHD:
-      msgImage.format = compression16BitString;
-      cv::imencode(compression16BitExt, image, msgImage.data, compressionParams);
-      break;
-    case COLOR_SD_RECT:
-    case COLOR_HD:
-    case COLOR_HD_RECT:
-    case COLOR_QHD:
-    case COLOR_QHD_RECT:
-      msgImage.format = sensor_msgs::image_encodings::BGR8 + "; jpeg compressed bgr8";
-      cv::imencode(".jpg", image, msgImage.data, compressionParams);
-      break;
-    case MONO_HD:
-    case MONO_HD_RECT:
-    case MONO_QHD:
-    case MONO_QHD_RECT:
-      msgImage.format = sensor_msgs::image_encodings::TYPE_8UC1 + "; jpeg compressed ";
-      cv::imencode(".jpg", image, msgImage.data, compressionParams);
-      break;
-    case COUNT:
-      return;
-    }
   }
 
   void publishStaticTF()
@@ -1535,13 +1403,10 @@ int main(int argc, char **argv)
   Kinect2Bridge kinect2;
   if(kinect2.start())
   {
-    OUT_INFO("hi in if");
     ros::spin();
 
     kinect2.stop();
   }
-  OUT_INFO("Hi before shutdown");
   ros::shutdown();
-  OUT_INFO("Hi before shutdown");
   return 0;
 }
