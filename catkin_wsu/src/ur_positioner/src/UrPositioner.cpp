@@ -58,16 +58,64 @@ namespace ur_positioner {
                 ROS_INFO("Reference frame: %s", group.getEndEffectorLink().c_str());
                 
                 group.setPoseTarget(target_pose1);
+		
+		/*robot_trajectory::RobotTrajectory rt(group.getCurrentState()->getRobotModel(), "manipulator");
+		rt.setRobotTrajectoryMsg(*group.getCurrentState(), trajectory);		
+		trajectory_processing::IterativeParabolicTimeParameterization iptp;
+		bool success = iptp.computeTimeStamps(rt);
+		ROS_INFO("Computed time stamp %s",success?"SUCCEDED":"FAILED");
+	
+		rt.getRobotTrajectoryMsg(trajectory);
+		plan.trajectory_ = trajectory;*/
+
+				
+	
 		ROS_INFO("Got in callback: 5a");
                 moveit::planning_interface::MoveGroup::Plan my_plan;
 		ROS_INFO("Got in callback: 5b");
                 bool success = group.plan(my_plan);
 
                 ROS_INFO("Visualizing plan 1 (pose goal) %s",success?"":"FAILED");
-                sleep(5.0);
+                sleep(4.0);
+		//group.execute(plan);
                 group.move();
-                sleep(10.0);
+                sleep(5.0);
                 ROS_INFO("Got in callback: 6*");
+
+		std::vector<geometry_msgs::Pose> waypoints;
+
+		//waypoints.push_back(target_pose1);
+		
+		target_pose1.position.x += 0.2; //left
+		//target_pose1.position.z += 0.2;
+
+		waypoints.push_back(target_pose1);
+
+		target_pose1.position.y -= 0.2;
+		waypoints.push_back(target_pose1);  // forward
+
+		//target_pose1.position.z -= 0.2;
+		//target_pose1.position.y += 0.2;
+		target_pose1.position.x -= 0.2; //right
+		waypoints.push_back(target_pose1);
+
+		
+		target_pose1.position.z += 0.2;
+		waypoints.push_back(target_pose1);
+
+		moveit_msgs::RobotTrajectory trajectory;
+		//group.setPlanningTime(10.0);
+		double fraction = group.computeCartesianPath(waypoints,
+                                             0.01,  // eef_step
+                                             0.0,   // jump_threshold
+                                             trajectory);
+
+		ROS_INFO("Visualizing plan 4 (cartesian path) (%.2f%% acheived)",
+      fraction * 100.0);
+		sleep(5.0);
+		my_plan.trajectory_ = trajectory;
+		group.execute(my_plan);
+		//group.move();
 
 		/**
 		if (1) {
