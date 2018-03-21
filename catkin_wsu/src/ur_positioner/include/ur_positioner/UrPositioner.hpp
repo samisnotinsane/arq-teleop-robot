@@ -38,7 +38,7 @@ class UrPositioner
    * ROS topic callback method.
    * @param message the received message.
    */
-  void topicCallback(const std_msgs::String& msg);
+  void topicCallback(geometry_msgs::Pose target_pose1);
 
   /*!
    * ROS service server callback.

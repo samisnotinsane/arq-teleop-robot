@@ -32,12 +32,12 @@ namespace ur_positioner {
 		return true;
 	}
 
-	void UrPositioner::topicCallback(const std_msgs::String& msg) {
+	void UrPositioner::topicCallback(geometry_msgs::Pose target_pose1) {
 		
 		ros::AsyncSpinner spinner(1);
                 spinner.start();
 
-		ROS_INFO("UR5 does: [%s] right now", msg.data.c_str());
+		//ROS_INFO("UR5 will move to  [%s]", target_pose1.c_str());
 		
                 ROS_INFO("Got in callback: 1");
    
@@ -56,11 +56,7 @@ namespace ur_positioner {
 
                 ROS_INFO("Reference frame: %s", group.getPlanningFrame().c_str());
                 ROS_INFO("Reference frame: %s", group.getEndEffectorLink().c_str());
-                geometry_msgs::Pose target_pose1;
-                //target_pose1.orientation.w = 0.5;
-                target_pose1.position.x = 0.4;
-                target_pose1.position.y = -0.4;
-                target_pose1.position.z = 0.2;
+                
                 group.setPoseTarget(target_pose1);
 		ROS_INFO("Got in callback: 5a");
                 moveit::planning_interface::MoveGroup::Plan my_plan;
@@ -68,9 +64,9 @@ namespace ur_positioner {
                 bool success = group.plan(my_plan);
 
                 ROS_INFO("Visualizing plan 1 (pose goal) %s",success?"":"FAILED");
-                sleep(40.0);
+                sleep(5.0);
                 group.move();
-                sleep(40.0);
+                sleep(10.0);
                 ROS_INFO("Got in callback: 6*");
 
 		/**
