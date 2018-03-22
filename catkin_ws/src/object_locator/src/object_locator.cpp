@@ -1,12 +1,13 @@
+#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <iomanip>
+#include <time.h>
+#include <signal.h>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <thread>
-#include <mutex>
-#include <chrono>
 #include <sys/stat.h>
 
 #include <signal.h>
@@ -42,10 +43,13 @@ libfreenect2::Registration *registration;
 libfreenect2::Freenect2Device::ColorCameraParams colorParams;
 libfreenect2::Freenect2Device::IrCameraParams irParams;
 
+Mat colorMat, depthMat, depthMapUndistort, colorDepth;
+libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2color(1920, 1080 + 2, 4);
+
 //should the program be shut down
-bool shutdown = false;
+bool protonect_shutdown = false;
 void sigint_handler(int s) {
-    shutdown = true;
+    protonect_shutdown = true;
 }
 
 void registerPipeline() {
@@ -113,41 +117,36 @@ void setupRegistration() {
     registration = new libfreenect2::Registration(irParams, colorParams);
 }
 
-void receiveFrames(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
+void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     
     listener->waitForNewFrame(frames);
     libfreenect2::Frame *rgb = frames[libfreenect2::Frame::Color];
     libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
-    //cout << rgb->height << "  " << rgb->width << "  " << depth->height << "  " << depth->width << endl;
-
     Mat(rgb->height, rgb->width, CV_8UC4, rgb->data).copyTo(color);
-    Mat(depth->height, depth->width, CV_32FC1, depth->data).copyTo(dep);
 
-}
+    imshow("Color", color);
 
-void showImages(Mat &color, Mat &depth) {
-    cout << "in showImages" << endl;
-    cout << color.cols << "  " << color.rows << endl;
-    cv::imshow("RGBColor", color);
-    //imshow("depth", depth);
+    registration -> apply(rgb, depth, &undistorted, &registered, true, &depth2color);
 
+    Mat(undistorted.height, undistorted.width, CV_32FC1, undistorted.data).copyTo(depthMapUndistort);
+    Mat(registered.height, registered.width, CV_8UC4, registered.data).copyTo(colorDepth);
+
+    imshow("Depth", depthMapUndistort/4500.0f);
+    imshow("Color and Depth", colorDepth);
 }
 
 void beginCollection(libfreenect2::FrameMap frames) {
-    Mat colorMat, depthMat, depthMapUndistort, colorDepth, colorDepth2;
     
     //Maybe not needed
     //Mat irMat;
 
-    while(!shutdown) {
-        receiveFrames(frames, colorMat, depthMat);
-
-        showImages(colorMat, depthMat);
+    while(!protonect_shutdown) {
+        showImages(frames, colorMat, depthMat);
 
         //Wait for key input, shutdown on escape
         int inputKey = waitKey(1);
-        shutdown = shutdown || (((inputKey & 0xFF) == 27) && inputKey > 0);
+        protonect_shutdown = protonect_shutdown || (((inputKey & 0xFF) == 27) && inputKey > 0);
         listener->release(frames);
     }
 }
@@ -166,7 +165,7 @@ bool openDevice() {
     }
 
     signal(SIGINT, sigint_handler);
-    shutdown = false;
+    protonect_shutdown = false;
 
     listener = new libfreenect2::SyncMultiFrameListener(
         libfreenect2::Frame::Color | libfreenect2::Frame::Ir | libfreenect2::Frame::Depth
