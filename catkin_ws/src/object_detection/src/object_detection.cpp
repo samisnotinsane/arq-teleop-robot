@@ -58,6 +58,6 @@ int main (int argc, char **argv) {
     ros::NodeHandle localNh("~");
 
     string topicName = nodeHandler.resolveName("image");
-    localNh.param("window_name", windowName, topic);
+    localNh.param("window_name", windowName, topicName);
     localNh.param("gui", guiActive, true);
 }
