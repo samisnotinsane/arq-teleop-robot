@@ -13,6 +13,8 @@
 #include <signal.h>
 
 #include <opencv2/opencv.hpp>
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 
 #include <ros/ros.h>
 #include <nodelet/nodelet.h>
@@ -134,6 +136,23 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
 
     imshow("Depth", depthMapUndistort/4500.0f);
     imshow("Color and Depth", colorDepth);
+
+    //Convert color image to grey
+    Mat greyColor;
+    cvtColor(color, greyColor, CV_BGR2GRAY);
+    CvMemStorage* store = cvCreateMemStorage(0);
+
+    blur(greyColor, greyColor, Size(3,3));
+
+    Mat dst, detectedEdges;
+    Canny(greyColor, greyColor, 100, 300, 3);
+    dst = Scalar::all(0);
+
+    
+
+    color.copyTo(dst, greyColor);
+    imshow("Edges", dst);
+
 }
 
 void beginCollection(libfreenect2::FrameMap frames) {
