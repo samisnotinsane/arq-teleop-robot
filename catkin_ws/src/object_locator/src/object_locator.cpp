@@ -9,6 +9,8 @@
 #include <chrono>
 #include <sys/stat.h>
 
+#include <signal.h>
+
 #include <opencv2/opencv.hpp>
 
 #include <ros/ros.h>
@@ -29,13 +31,12 @@
 #include <libfreenect2/registration.h>
 
 using namespace std;
-
-//libfreenect2::Frame color;
+using namespace cv;
 
 string serial = "";
 libfreenect2::Freenect2 freenect2;
 libfreenect2::Freenect2Device *dev = nullptr;
-libfreenect2::SyncMultiFrameListener *listenerColor, *listenerDepth;
+libfreenect2::SyncMultiFrameListener *listener;
 libfreenect2::PacketPipeline *pipeline = nullptr;
 libfreenect2::Registration *registration;
 libfreenect2::Freenect2Device::ColorCameraParams colorParams;
@@ -47,11 +48,10 @@ void sigint_handler(int s) {
     shutdown = true;
 }
 
-void registerKinect() {
+void registerPipeline() {
 
     cout << "INFO: Registering Kinect" << endl;
 
-    registration = new libfreenect2::Registration(irParams, colorParams);
     if(pipeline == nullptr) {
         pipeline = new libfreenect2::CpuPacketPipeline();
     }
@@ -84,7 +84,7 @@ bool setupKinect() {
         cout << "ERROR: Initialisation failed" << endl;
         return false;
     }
-    registerKinect();
+    registerPipeline();
 
     printKinectDetails();
 
@@ -95,8 +95,7 @@ bool startDevice() {
 
     if(!dev->start()) {
         cout << "ERROR: could not start Kinect" << endl;
-        delete listenerColor;
-        delete listenerDepth;
+        delete listener;
         return false;
     }
 
@@ -106,17 +105,57 @@ bool startDevice() {
     return true;
 }
 
-void receiveFrames(libfreenect2::FrameMap frames) {
-    cout << "Receiving Frames" << endl;
+void setupRegistration() {
+
+    irParams = dev->getIrCameraParams();
+    colorParams = dev->getColorCameraParams();
+
+    registration = new libfreenect2::Registration(irParams, colorParams);
+}
+
+void receiveFrames(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
+    
+    listener->waitForNewFrame(frames);
     libfreenect2::Frame *rgb = frames[libfreenect2::Frame::Color];
     libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
+    //cout << rgb->height << "  " << rgb->width << "  " << depth->height << "  " << depth->width << endl;
+
+    Mat(rgb->height, rgb->width, CV_8UC4, rgb->data).copyTo(color);
+    Mat(depth->height, depth->width, CV_32FC1, depth->data).copyTo(dep);
+
+}
+
+void showImages(Mat &color, Mat &depth) {
+    cout << "in showImages" << endl;
+    cout << color.cols << "  " << color.rows << endl;
+    cv::imshow("RGBColor", color);
+    //imshow("depth", depth);
+
+}
+
+void beginCollection(libfreenect2::FrameMap frames) {
+    Mat colorMat, depthMat, depthMapUndistort, colorDepth, colorDepth2;
+    
+    //Maybe not needed
+    //Mat irMat;
+
+    while(!shutdown) {
+        receiveFrames(frames, colorMat, depthMat);
+
+        showImages(colorMat, depthMat);
+
+        //Wait for key input, shutdown on escape
+        int inputKey = waitKey(1);
+        shutdown = shutdown || (((inputKey & 0xFF) == 27) && inputKey > 0);
+        listener->release(frames);
+    }
 }
 
 bool openDevice() {
 
     if(pipeline != nullptr) {
-        dev = freenect2.openDevice(serial, pipline);
+        dev = freenect2.openDevice(serial, pipeline);
     } else {
         dev = freenect2.openDevice(serial);
     }
@@ -129,21 +168,22 @@ bool openDevice() {
     signal(SIGINT, sigint_handler);
     shutdown = false;
 
-    listenerColor = new libfreenect2::SyncMultiFrameListener(libfreenect2::Frame::Color);
-    listenerDepth = new libfreenect2::SyncMultiFrameListener(libfreenect2::Frame::Ir | libfreenect2::Frame::Depth);
+    listener = new libfreenect2::SyncMultiFrameListener(
+        libfreenect2::Frame::Color | libfreenect2::Frame::Ir | libfreenect2::Frame::Depth
+        );
 
     libfreenect2::FrameMap frames;
 
-    dev->setColorFrameListener(listenerColor);
-    dev->setIrAndDepthFrameListener(listenerDepth);
+    dev->setColorFrameListener(listener);
+    dev->setIrAndDepthFrameListener(listener);
 
     if(!startDevice()) {
         cout << "ERROR: Failed to start device" << endl;
     }
 
-    while(ros::ok()) {
-        receiveFrames(frames);
-    }
+    setupRegistration();
+
+    beginCollection(frames);
 
     return true;
 }
@@ -151,6 +191,8 @@ bool openDevice() {
 void closeDevice() {
     dev -> stop();
     dev -> close();
+
+    delete registration;
 }
 
 int main (int argc, char **argv) {
@@ -167,5 +209,5 @@ int main (int argc, char **argv) {
 
     closeDevice();
     
-    cout << "Hello" << endl;
+    cout << "Object Locator Completed Successfully" << endl;
 }
