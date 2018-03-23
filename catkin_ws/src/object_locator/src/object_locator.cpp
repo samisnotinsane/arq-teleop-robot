@@ -127,38 +127,49 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
 
     Mat(rgb->height, rgb->width, CV_8UC4, rgb->data).copyTo(color);
 
-    imshow("Color", color);
+    //imshow("Color", color);
 
     registration -> apply(rgb, depth, &undistorted, &registered, true, &depth2color);
 
     Mat(undistorted.height, undistorted.width, CV_32FC1, undistorted.data).copyTo(depthMapUndistort);
     Mat(registered.height, registered.width, CV_8UC4, registered.data).copyTo(colorDepth);
 
-    imshow("Depth", depthMapUndistort/4500.0f);
-    imshow("Color and Depth", colorDepth);
+    //imshow("Depth", depthMapUndistort/4500.0f);
+    //imshow("Color and Depth", colorDepth);
 
     //Convert color image to grey
-    Mat greyColor;
+    Mat greyColor, circ, dst;
     cvtColor(color, greyColor, CV_BGR2GRAY);
-    CvMemStorage* store = cvCreateMemStorage(0);
 
-    blur(greyColor, greyColor, Size(3,3));
+    //smooth to prevent false circles being detected
+    GaussianBlur(greyColor, greyColor, Size(9,9), 2, 2);
 
-    Mat dst, detectedEdges;
-    Canny(greyColor, greyColor, 100, 300, 3);
-    dst = Scalar::all(0);
+    //Mat dst, detectedEdges;
+    //Canny(greyColor, greyColor, 100, 300, 3);
+    circ = Scalar::all(0);
 
-    
+    vector<Vec3f> circles;
+    HoughCircles(greyColor, circles, CV_HOUGH_GRADIENT, 2, greyColor.rows/4, 200, 100);
 
-    color.copyTo(dst, greyColor);
-    imshow("Edges", dst);
+    for(size_t i=0; i<circles.size(); i++) {
+        Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+        int radius = cvRound(circles[i][2]);
+
+        //draw circle center
+        circle(circ, center, 3, Scalar(0, 255, 0), -1, 8, 0);
+
+        //draw outline
+        circle(circ, center, radius, Scalar(0,0, 255), 3, 8, 0);
+
+        //draw details
+    }
+    imshow("grey", greyColor);
+    //color.copyTo(circ, greyColor);
+    imshow("Edges", circ);
 
 }
 
 void beginCollection(libfreenect2::FrameMap frames) {
-    
-    //Maybe not needed
-    //Mat irMat;
 
     while(!protonect_shutdown) {
         showImages(frames, colorMat, depthMat);
