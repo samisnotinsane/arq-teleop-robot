@@ -36,6 +36,8 @@
 using namespace std;
 using namespace cv;
 
+string type;
+
 string serial = "";
 libfreenect2::Freenect2 freenect2;
 libfreenect2::Freenect2Device *dev = nullptr;
@@ -125,48 +127,81 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     libfreenect2::Frame *rgb = frames[libfreenect2::Frame::Color];
     libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
+    if(type == "test") {
+        cout << "Hello" << endl;
+        return;
+    }
+
     Mat(rgb->height, rgb->width, CV_8UC4, rgb->data).copyTo(color);
 
-    //imshow("Color", color);
+    if(type == "color") {
+        imshow("Color", color);
+        return;
+    }
 
     registration -> apply(rgb, depth, &undistorted, &registered, true, &depth2color);
 
     Mat(undistorted.height, undistorted.width, CV_32FC1, undistorted.data).copyTo(depthMapUndistort);
     Mat(registered.height, registered.width, CV_8UC4, registered.data).copyTo(colorDepth);
 
-    //imshow("Depth", depthMapUndistort/4500.0f);
-    //imshow("Color and Depth", colorDepth);
-
-    //Convert color image to grey
-    Mat greyColor, circ, dst;
-    cvtColor(color, greyColor, CV_BGR2GRAY);
-
-    //smooth to prevent false circles being detected
-    GaussianBlur(greyColor, greyColor, Size(9,9), 2, 2);
-
-    //Mat dst, detectedEdges;
-    //Canny(greyColor, greyColor, 100, 300, 3);
-    circ = Scalar::all(0);
-
-    vector<Vec3f> circles;
-    HoughCircles(greyColor, circles, CV_HOUGH_GRADIENT, 2, greyColor.rows/4, 200, 100);
-
-    for(size_t i=0; i<circles.size(); i++) {
-        Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
-        int radius = cvRound(circles[i][2]);
-
-        //draw circle center
-        circle(circ, center, 3, Scalar(0, 255, 0), -1, 8, 0);
-
-        //draw outline
-        circle(circ, center, radius, Scalar(0,0, 255), 3, 8, 0);
-
-        //draw details
+    if(type == "depth") {
+        imshow("Depth", depthMapUndistort/4500.0f);
+        return;
+    } else if (type == "both") {
+        imshow("Color and Depth", colorDepth);
     }
-    imshow("grey", greyColor);
-    //color.copyTo(circ, greyColor);
-    imshow("Edges", circ);
 
+    else if (type == "edges") {
+        //Convert color image to grey
+        Mat greyColor;
+
+        cvtColor(color, greyColor, CV_BGR2GRAY);
+        CvMemStorage* store = cvCreateMemStorage(0);
+
+        //smooth to prevent false circles being detected
+        blur(greyColor, greyColor, Size(3,3));
+
+        Mat dst, detectedEdges;
+        Canny(greyColor, greyColor, 100, 300, 3);
+        dst = Scalar::all(0);
+
+        color.copyTo(dst, greyColor);
+        imshow("Objects", dst);
+
+        return;
+    }
+
+    else if (type == "objects") {
+        Mat greyColor, circ, dst;
+        cvtColor(color, greyColor, CV_BGR2GRAY);
+
+        //smooth to prevent false circles being detected
+        GaussianBlur(greyColor, greyColor, Size(9,9), 2, 2);
+
+        //Mat dst, detectedEdges;
+        //Canny(greyColor, greyColor, 100, 300, 3);
+        circ = Scalar::all(0);
+
+        vector<Vec3f> circles;
+        HoughCircles(greyColor, circles, CV_HOUGH_GRADIENT, 2, greyColor.rows/4, 200, 100);
+
+        for(size_t i=0; i<circles.size(); i++) {
+            Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));
+            int radius = cvRound(circles[i][2]);
+
+            //draw circle center
+            circle(circ, center, 3, Scalar(0, 255, 0), -1, 8, 0);
+
+            //draw outline
+            circle(circ, center, radius, Scalar(0,0, 255), 3, 8, 0);
+
+            //draw details
+        }
+
+        imshow("grey", greyColor);
+        //color.copyTo(circ, greyColor);
+        imshow("Edges", circ);
+    }
 }
 
 void beginCollection(libfreenect2::FrameMap frames) {
@@ -225,6 +260,26 @@ void closeDevice() {
 }
 
 int main (int argc, char **argv) {
+
+    if( argc != 2 )
+    {
+        cout << "\nIncorrect launch command" << endl;
+        cout << "Launch command format: " << endl;
+        cout << "rosrun object_locator object_locator [color | depth | both | edges | objects]" << endl;
+
+        return 0;
+    } 
+    type = argv[1];
+    if (!(type == "color"   ||
+          type == "depth"   ||
+          type == "both"    ||
+          type == "edges"   ||
+          type == "test"    ||
+          type == "objects"    ))
+    {
+        cout << "The final argument must be [color | depth | both | edges | objects]" << endl;
+        return 0;
+    }
 
     if(!setupKinect()) {
         cout << "ERROR: Kinect Setup Failed" << endl;
