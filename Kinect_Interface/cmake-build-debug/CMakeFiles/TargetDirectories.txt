@@ -1,3 +1,0 @@
-/home/wael/Desktop/arq-teleop-robot/Kinect_Interface/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/wael/Desktop/arq-teleop-robot/Kinect_Interface/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/wael/Desktop/arq-teleop-robot/Kinect_Interface/cmake-build-debug/CMakeFiles/Kinect_Interface.dir
