@@ -127,12 +127,8 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     libfreenect2::Frame *rgb = frames[libfreenect2::Frame::Color];
     libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
-    if(type == "test") {
-        cout << "Hello" << endl;
-        return;
-    }
-
     Mat(rgb->height, rgb->width, CV_8UC4, rgb->data).copyTo(color);
+    Mat(depth->height, depth->width, CV_8UC4, depth->data).copyTo(depthMat);
 
     if(type == "color") {
         imshow("Color", color);
@@ -190,7 +186,7 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
             int radius = cvRound(circles[i][2]);
 
             //draw circle center
-            circle(circ, center, 3, Scalar(0, 255, 0), -1, 8, 0);
+            circle(circ, center, 3, Scalar(0, 255, 255), -1, 8, 0);
 
             //draw outline
             circle(circ, center, radius, Scalar(0,0, 255), 3, 8, 0);
@@ -198,9 +194,57 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
             //draw details
         }
 
-        imshow("grey", greyColor);
-        //color.copyTo(circ, greyColor);
+        color.copyTo(circ, greyColor);
         imshow("Edges", circ);
+    }
+
+    else if(type == "hsv") {
+
+        Mat hsv;
+        cvtColor(color, hsv, CV_RGB2HSV);
+
+        Scalar min(110, 0, 0);
+        Scalar max(130, 255, 255);
+
+        Mat seg;
+        inRange(hsv, min, max, seg);
+
+        imshow("Segmentation", seg);
+
+        return;
+    }
+
+    else if (type == "test") {
+        IplImage* iplColor = new IplImage(color);
+
+        IplImage* grey = cvCreateImage(cvGetSize(iplColor), IPL_DEPTH_8U, 1);
+        CvMemStorage* store = cvCreateMemStorage(0);
+
+        cvCvtColor(iplColor, grey, CV_BGR2GRAY);
+        cvSmooth(grey, grey, CV_GAUSSIAN, 7, 7);
+
+        IplImage* canny = cvCreateImage(cvGetSize(iplColor), IPL_DEPTH_8U, 1);
+        IplImage* colorCanny = cvCreateImage(cvGetSize(iplColor), IPL_DEPTH_8U, 1);
+
+        cvCanny(grey, canny, 50, 100, 3);
+
+        CvSeq* circ = cvHoughCircles(grey, store, CV_HOUGH_GRADIENT, 1, grey->height/3, 250, 100);
+        cvCvtColor(canny, colorCanny, CV_GRAY2BGR);
+
+        // for(size_t i=0; i<circ->total; i++) {
+
+        //     float* point = (float*)cvGetSeqElem(circ, i);
+        //     cv::Point center(cvRound(point[0]), cvRound(point[1]));
+
+        //     int radius = cvRound(point[2]);
+
+        //     cvCircle(colorCanny, center, 3, CV_RGB(0,255,0), -1, 8, 0 );
+        //     cvCircle(colorCanny, center, radius+1, CV_RGB(0,0,255), 2, 8, 0 );
+            
+        // }
+
+        cvShowImage("grey", colorCanny);
+        return;
     }
 }
 
@@ -275,6 +319,7 @@ int main (int argc, char **argv) {
           type == "both"    ||
           type == "edges"   ||
           type == "test"    ||
+          type == "hsv"     ||
           type == "objects"    ))
     {
         cout << "The final argument must be [color | depth | both | edges | objects]" << endl;
