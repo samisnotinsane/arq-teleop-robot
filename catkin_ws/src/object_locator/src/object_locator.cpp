@@ -176,11 +176,51 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
         Mat hsv;
         cvtColor(color, hsv, CV_RGB2HSV);
 
-        Scalar min(110, 0, 0);
+        Scalar min(110, 175, 100);
         Scalar max(130, 255, 255);
 
         Mat seg;
         inRange(hsv, min, max, seg);
+
+        vector<vector<Point>> contour;
+        vector<Vec4i> heirarchy;
+        vector<Point2i> center;
+        vector<int> rad;
+        
+        findContours(seg.clone(), contour, heirarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE);
+
+        for(int i=0; i<contour.size(); i++) {
+            Point2f cent; float r;
+            minEnclosingCircle(contour[i], cent, r);
+
+            if(r >= 10) {
+                center.push_back(cent);
+                rad.push_back(r);
+            }
+        }
+
+        Scalar redColor(255,0,0);
+
+        for(int i=0; i<center.size(); i++) {
+            Point2f topLeft(center[i].x+rad[i], center[i].y+rad[i]);
+            Point2f bottomRight(center[i].x-rad[i], center[i].y-rad[i]);
+
+            rectangle(seg, topLeft, bottomRight, redColor, 1, 8, 0);
+            
+            string r = to_string(rad[i]);
+            string top = "Radius = " + r;
+            string c = "Center = " + format("(%d,%d)", center[i].x, center[i].y);
+            
+            Point2f topLeftText(center[i].x-(10+rad[i]), center[i].y-(10+rad[i]));
+            Point2f centPoint(center[i].x-rad[i], center[i].y + rad[i]+20);
+            Point2f point(center[i].x, center[i].y);
+
+            Scalar black(0,0,255);
+            circle(seg, point, 2, black, -1, 8, 0);
+                        
+            putText(seg, top, topLeftText, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
+            putText(seg, c, centPoint, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
+        }
 
         imshow("Segmentation", seg);
 
