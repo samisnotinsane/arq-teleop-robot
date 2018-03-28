@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <sys/stat.h>
+#include <cmath>
 
 #include <signal.h>
 
@@ -127,11 +128,6 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     libfreenect2::Frame *rgb = frames[libfreenect2::Frame::Color];
     libfreenect2::Frame *depth = frames[libfreenect2::Frame::Depth];
 
-    if(type == "test") {
-        cout << "Hello" << endl;
-        return;
-    }
-
     Mat(rgb->height, rgb->width, CV_8UC4, rgb->data).copyTo(color);
 
     if(type == "color") {
@@ -226,6 +222,26 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
 
         return;
     }
+
+
+    if(type == "objects_depth") {
+        
+        Mat depth = depthMapUndistort/4500.0f;
+        Mat depthSeg = Mat::zeros(depth.rows, depth.cols, CV_32FC1);
+        Scalar redColor(255,0,0);
+        for(int i=1; i<depth.rows; i++) {
+            for(int j=0; j<depth.cols; j++) {
+                int difference = abs(depth.at<int>(i,j) - depth.at<int>(i-1,j));
+                if(difference > 1000000) {
+                    Point2f point(j,i);
+                    line(depthSeg, point, point, redColor);
+                }
+            }
+        }
+        imshow("depth", depthSeg);
+
+        return;
+    }
 }
 
 void beginCollection(libfreenect2::FrameMap frames) {
@@ -298,7 +314,7 @@ int main (int argc, char **argv) {
           type == "depth"   ||
           type == "both"    ||
           type == "edges"   ||
-          type == "test"    ||
+          type == "objects_depth"    ||
           type == "objects_image"    ))
     {
         cout << "The final argument must be [color | depth | both | edges | objects_image]" << endl;
