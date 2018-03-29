@@ -216,7 +216,7 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
 
             Scalar black(0,0,255);
             circle(seg, point, 2, black, -1, 8, 0);
-                        
+
             putText(seg, top, topLeftText, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
             putText(seg, c, centPoint, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
         }
