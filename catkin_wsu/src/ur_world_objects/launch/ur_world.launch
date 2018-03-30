@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="world" default="camera"/>
+	<arg name="debug" default="false"/>
+	<arg name="physics" default="ode"/>
+
+<!--env name="GAZEBO_PLUGIN_PATH" value="$(find ur_world_objects)/plugins/camera_plugin/build"/-->
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+<env name="GAZEBO_PLUGIN_PATH" value="~/git/arq-teleop-robot/catkin_wsu/src/camera_plugin/build"/>
+<arg name="world_name" value="$(find ur_world_objects)/world/$(arg world).world"/>
+<arg name="debug" value="$(arg debug)"/>
+<arg name="physics" value="$(arg physics)"/>
+</include>
+
+</launch>
