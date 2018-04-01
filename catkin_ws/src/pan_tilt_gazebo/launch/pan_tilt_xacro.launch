@@ -11,7 +11,7 @@
 
   <!-- Spawn simulation. -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch" > 
-    <arg name="world_name" value="$(find pan_tilt_gazebo)/worlds/sphere_atlas_demo.world" />
+    <arg name="world_name" value="$(find pan_tilt_gazebo)/worlds/petrol_station.world" />
   </include> 
 
   <!-- Spawn robot in simulation. -->
