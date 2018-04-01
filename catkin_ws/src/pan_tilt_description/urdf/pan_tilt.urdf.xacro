@@ -194,7 +194,7 @@
     <!-- Gazebo only supports transmission_interface/SimpleTransmission -->
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="head_to_base">
-      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="actuator1">
       <hardwareInterface>EffortJointInterface</hardwareInterface>

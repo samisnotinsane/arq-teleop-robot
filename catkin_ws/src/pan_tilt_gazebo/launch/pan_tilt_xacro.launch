@@ -24,5 +24,12 @@
               -model $(arg bot_name)"
         respawn="false" output="screen">
   </node>
+
+  <!-- Spawn ros_control nodes to allow joint control in simulation. -->
+  <group>
+    <include file="$(find pan_tilt_control)/launch/pan_tilt_control.launch" />
+  </group>
+
 </launch>
 
+iq:qbnui:q:q
