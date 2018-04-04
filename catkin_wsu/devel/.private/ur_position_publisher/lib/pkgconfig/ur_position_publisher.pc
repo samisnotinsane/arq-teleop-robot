@@ -1,8 +1,0 @@
-prefix=/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_position_publisher
-
-Name: ur_position_publisher
-Description: Description of ur_position_publisher
-Version: 0.0.0
-Cflags: -I/home/nnadozie/git/arq-teleop-robot/catkin_wsu/src/ur_position_publisher/include
-Libs: -L/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_position_publisher/lib 
-Requires: roscpp
