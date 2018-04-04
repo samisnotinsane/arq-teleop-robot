@@ -30,5 +30,13 @@
     <include file="$(find pan_tilt_control)/launch/pan_tilt_control.launch" />
   </group>
 
+<!-- Start rosbridge server on port 9090. -->
+<include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
+  <param name="port" value="9090" />
+</include>
+
+<!-- file_server is a ros_sharp dependency which is used for transacting with Unity based clients. -->
+<node name="file_server" pkg="file_server" type="file_server" output="screen" />
+
 </launch>
 
