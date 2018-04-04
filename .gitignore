@@ -1,2 +1,3 @@
 catkin_wsu/logs*
 catkin_wsu/build*
+catkin_wsu/devel*
