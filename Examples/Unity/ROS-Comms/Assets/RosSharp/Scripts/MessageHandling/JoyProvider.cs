@@ -14,6 +14,7 @@ limitations under the License.
 */
 
 using System;
+using UnityEngine;
 
 namespace RosSharp.RosBridgeClient
 {
@@ -40,7 +41,7 @@ namespace RosSharp.RosBridgeClient
         }      
         private void InitializeGameObject()
         {
-            JoyAxisReaders = GetComponents<JoyAxisReader>();
+            JoyAxisReaders = this.gameObject.GetComponents<JoyAxisReader>();
             JoyButtonReaders = GetComponents<JoyButtonReader>();            
         }
         private void InitializeMessage()
@@ -55,8 +56,10 @@ namespace RosSharp.RosBridgeClient
             message.header.Update();
 
             for (int i = 0; i < JoyAxisReaders.Length; i++)
+            {
                 message.axes[i] = JoyAxisReaders[i].Read();
-            
+            }
+
             for (int i = 0; i < JoyButtonReaders.Length; i++)
                 message.buttons[i] = (JoyButtonReaders[i].Read() ? 1 : 0);
 
