@@ -1,5 +1,0 @@
-ur_positioner
-/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/share/ur_positioner/cmake/ur_positionerConfig-version.cmake /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/share/ur_positioner/cmake/ur_positionerConfig-version.cmake
-/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/share/ur_positioner/cmake/ur_positionerConfig.cmake /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/share/ur_positioner/cmake/ur_positionerConfig.cmake
-/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/ur_positioner/ur_positioner_node /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/lib/ur_positioner/ur_positioner_node
-/home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/.private/ur_positioner/lib/pkgconfig/ur_positioner.pc /home/nnadozie/git/arq-teleop-robot/catkin_wsu/devel/lib/pkgconfig/ur_positioner.pc
