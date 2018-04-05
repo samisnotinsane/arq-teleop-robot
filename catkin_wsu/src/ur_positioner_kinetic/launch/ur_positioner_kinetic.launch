@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node name="positioner" pkg="ur_positioner_kinetic" type="ur_positioner_kinetic_node" output="screen">
+		<rosparam command="load"
+			file="$(find ur_positioner_kinetic)/config/config.yaml" />
+	</node>
+</launch>
