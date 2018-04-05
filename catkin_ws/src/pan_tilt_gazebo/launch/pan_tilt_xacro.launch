@@ -38,5 +38,7 @@
 <!-- file_server is a ros_sharp dependency which is used for transacting with Unity based clients. -->
 <node name="file_server" pkg="file_server" type="file_server" output="screen" />
 
+<node name="joy_to_float" pkg="pan_tilt_gazebo" type="joint_neck_publisher" output="screen" />
+
 </launch>
 
