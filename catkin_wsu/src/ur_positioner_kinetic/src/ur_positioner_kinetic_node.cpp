@@ -7,7 +7,7 @@ int main(int argc, char** argv)
   ros::NodeHandle nodeHandle("~");
 
   ur_positioner_kinetic::UrPositionerKinetic urPositionerKinetic(nodeHandle);
-
-  ros::spin();
+  ros::MultiThreadedSpinner spinner(2); // Use 4 threads
+  spinner.spin();
   return 0;
 }

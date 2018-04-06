@@ -5,6 +5,14 @@ project(ur_positioner_kinetic)
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
 
+
+find_package(Eigen3 REQUIRED)
+
+# Eigen 3.2 (Wily) only provides EIGEN3_INCLUDE_DIR, not EIGEN3_INCLUDE_DIRS
+if(NOT EIGEN3_INCLUDE_DIRS)
+  set(EIGEN3_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
+endif()
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -16,6 +24,7 @@ find_package(catkin REQUIRED
     	pluginlib
     	cmake_modules
 	geometric_shapes
+	moveit_visual_tools
 )
 
 ## System dependencies are found with CMake's conventions
@@ -115,7 +124,8 @@ catkin_package(
 	moveit_core
 	moveit_ros_planning_interface
 	interactive_markers
-  #DEPENDS system_lib
+    DEPENDS
+	EIGEN3
 )
 
 ###########
@@ -124,6 +134,9 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+include_directories(SYSTEM ${Boost_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS})
+
+
 include_directories(
  include
  ${catkin_INCLUDE_DIRS}
