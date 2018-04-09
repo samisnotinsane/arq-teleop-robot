@@ -2,8 +2,8 @@
 
   <!-- Define name and spawn location in simulation of robot. -->
   <arg name="bot_name" default="pan_tilt" doc="Default value set to 'pan_tilt'. Do not override!" /> 
-  <arg name="init_x" default="0.0" doc="X coordinate of robot spawn location." />
-  <arg name="init_y" default="0.0" doc="Y coordinate of robot spawn location." />
+  <arg name="init_x" default="2.0" doc="X coordinate of robot spawn location." />
+  <arg name="init_y" default="-7.0" doc="Y coordinate of robot spawn location." />
   <arg name="init_z" default="0.0" doc="Z coordinate of robot spawn location." />
 
   <!-- Convert Xacro robot description into URDF description because Gazebo only accepts URDF. --> 

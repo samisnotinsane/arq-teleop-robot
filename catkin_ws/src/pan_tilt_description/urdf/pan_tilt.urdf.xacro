@@ -86,14 +86,14 @@
       <geometry>
         <box size="${head_link_size_x} ${head_link_size_y} ${head_link_size_z}" />
       </geometry>
-      <origin rpy="0 1.57075 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
+      <origin rpy="0 0 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
     </collision>
 
     <visual>
       <geometry>
         <box size="${head_link_size_x} ${head_link_size_y} ${head_link_size_z}" />
       </geometry>
-      <origin rpy="0 1.57075 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
+      <origin rpy="0 0 0" xyz="${head_link_origin_x} ${head_link_origin_y} ${head_link_origin_z}"/>
       <material name="orange" />
     </visual>
 

@@ -28,6 +28,7 @@ int main(int argc, char **argv) {
 	  naptime.sleep();
   }
   */
+  ROS_INFO("Loaded joint_neck_publisher");
   ros::spin();
 }
 
