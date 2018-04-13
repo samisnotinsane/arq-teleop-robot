@@ -11,7 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
 )
-
+find_package(gazebo REQUIRED)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -117,12 +117,19 @@ catkin_package(
 include_directories(
 # include
  ${catkin_INCLUDE_DIRS}
+ ${GAZEBO_INCLUDE_DIRS}
 )
 
+link_directories(${GAZEBO_INCLUDE_DIRS})
+list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
+
 ## Declare a C++ library
-# add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/pan_tilt_gazebo.cpp
-# )
+add_library(hello_world_plugin SHARED
+  src/hello_world_plugin.cc
+)
+add_library(model_push SHARED
+  src/model_push.cc
+)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -145,9 +152,15 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(joint_neck_publisher
-   ${catkin_LIBRARIES}
- )
+target_link_libraries(joint_neck_publisher
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(hello_world_plugin 
+  ${GAZEBO_LIBRARIES}
+)
+target_link_libraries(model_push
+  ${GAZEBO_LIBRARIES}
+)
 
 #############
 ## Install ##
