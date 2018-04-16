@@ -2,7 +2,8 @@
 <sdf version="1.4">
   <world name="default">
     <include>
-      <uri>model://ground_plane</uri>
+	  <uri>model://ground_plane</uri>
+	  <pose>0.0 -3.0 0.0 0 0 0</pose>
     </include>
     <include>
       <uri>model://sun</uri>
@@ -12,6 +13,21 @@
       <name>gas_station</name>
       <pose>-2.0 7.0 0 0 0 0</pose>
     </include>
+	<include>
+		<uri>model://mars_rover</uri>
+		<name>mars_rover</name>
+		<pose>-7.0 0.0 0 0 0 1.57</pose>
+	</include>
+	<include>
+		<uri>model://fire_hydrant</uri>
+		<name>fire_hydrant</name>
+		<pose>10.0 -7.0 0.0 0 0 -1.57</pose>
+	</include>
+	<include>
+		<uri>model://dumpster</uri>
+		<name>dumpster</name>
+		<pose>-7.0 -16.0 0.0 0 0 3.14</pose>
+	</include>
 	<plugin name="hello_world_plugin" filename="libhello_world_plugin.so"/>
 	<plugin name="model_push" filename="libmodel_push.so"/>
   </world>
