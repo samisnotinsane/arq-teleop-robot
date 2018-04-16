@@ -14,11 +14,6 @@
       <pose>-2.0 7.0 0 0 0 0</pose>
     </include>
 	<include>
-		<uri>model://mars_rover</uri>
-		<name>mars_rover</name>
-		<pose>-7.0 0.0 0 0 0 1.57</pose>
-	</include>
-	<include>
 		<uri>model://fire_hydrant</uri>
 		<name>fire_hydrant</name>
 		<pose>10.0 -7.0 0.0 0 0 -1.57</pose>
