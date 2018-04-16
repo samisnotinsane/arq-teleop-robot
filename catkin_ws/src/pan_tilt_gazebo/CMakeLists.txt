@@ -140,6 +140,7 @@ add_library(model_push SHARED
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
  add_executable(joint_neck_publisher src/joint_neck_publisher.cpp)
+ add_executable(turtlebot_driver src/drive_turtlebot.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -161,6 +162,10 @@ target_link_libraries(hello_world_plugin
 target_link_libraries(model_push
   ${GAZEBO_LIBRARIES}
 )
+target_link_libraries(turtlebot_driver
+	${catkin_LIBRARIES}
+)
+
 
 #############
 ## Install ##
