@@ -185,6 +185,7 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
         vector<Vec4i> heirarchy;
         vector<Point2i> center;
         vector<int> rad;
+        string distance;
         
         findContours(seg.clone(), contour, heirarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE);
 
@@ -211,14 +212,36 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
             string c = "Center = " + format("(%d,%d)", center[i].x, center[i].y);
             
             Point2f topLeftText(center[i].x-(10+rad[i]), center[i].y-(10+rad[i]));
-            Point2f centPoint(center[i].x-rad[i], center[i].y + rad[i]+20);
+            Point2f centPointText(center[i].x-rad[i], center[i].y + rad[i]+20);
             Point2f point(center[i].x, center[i].y);
 
             Scalar black(0,0,255);
             circle(seg, point, 2, black, -1, 8, 0);
 
             putText(seg, top, topLeftText, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
-            putText(seg, c, centPoint, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
+            putText(seg, c, centPointText, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
+
+            distance = to_string(5);
+
+            int colorWidth = color.cols;
+            int colorHeight = color.rows;
+            Mat depthMap = depthMapUndistort/4500.0f;
+            int depthWidth = depthMap.cols;
+            int depthHeight = depthMap.rows;
+            
+            //cout << colorWidth << "   " << colorHeight << "  " << depthWidth << "  " << depthHeight << endl;
+
+            int scaledCenterX = (point.x * depthWidth) / colorWidth;
+            int scaledCenterY = (point.y * depthHeight) / colorHeight;
+
+            //cout << scaledCenterX << "  " << scaledCenterY << endl;
+
+            int distance = depthMap.at<int>(scaledCenterX,scaledCenterY);
+
+            string dist = "Distance: " + to_string(distance);
+            
+            Point2f distPoint(center[i].x-rad[i], center[i].y + rad[i]+40);
+            putText(seg, dist, distPoint, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
         }
 
         imshow("Segmentation", seg);
@@ -227,7 +250,7 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     }
 
 
-    if(type == "objects_depth") {
+    if(type == "edges_depth") {
         
         Mat depth = depthMapUndistort/4500.0f;
         Mat depthSeg = Mat::zeros(depth.rows, depth.cols, CV_32FC1);
@@ -317,7 +340,7 @@ int main (int argc, char **argv) {
           type == "depth"   ||
           type == "both"    ||
           type == "edges"   ||
-          type == "objects_depth"    ||
+          type == "edges_depth"    ||
           type == "objects_image"    ))
     {
         cout << "The final argument must be [color | depth | both | edges | objects_image]" << endl;
