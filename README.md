@@ -13,10 +13,10 @@ Inside the robot mind: Accessing 3D scene reconstruction through Virtual Reality
 
 # 2. Cloning this branch
 
-1. Navigate to `/catkin_ws/src` within your catkin workspace.
-2. `git clone https://github.com/samisnotinsane/arq-teleop-robot.git`
+1. `git clone https://github.com/samisnotinsane/arq-teleop-robot.git`
+2. Navigate into the folder.
 3. `git checkout wael_development`. You are now in this branch
-4. You can now use the project in the way you like 
+4. You can now use the project in the way you like, build the workspace with catkin_make
 
 # 4. Included
 
