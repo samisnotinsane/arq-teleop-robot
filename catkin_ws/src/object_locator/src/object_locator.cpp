@@ -220,28 +220,7 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
 
             putText(seg, top, topLeftText, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
             putText(seg, c, centPointText, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
-
-            distance = to_string(5);
-
-            int colorWidth = color.cols;
-            int colorHeight = color.rows;
-            Mat depthMap = depthMapUndistort/4500.0f;
-            int depthWidth = depthMap.cols;
-            int depthHeight = depthMap.rows;
             
-            //cout << colorWidth << "   " << colorHeight << "  " << depthWidth << "  " << depthHeight << endl;
-
-            int scaledCenterX = (point.x * depthWidth) / colorWidth;
-            int scaledCenterY = (point.y * depthHeight) / colorHeight;
-
-            //cout << scaledCenterX << "  " << scaledCenterY << endl;
-
-            int distance = depthMap.at<int>(scaledCenterX,scaledCenterY);
-
-            string dist = "Distance: " + to_string(distance);
-            
-            Point2f distPoint(center[i].x-rad[i], center[i].y + rad[i]+40);
-            putText(seg, dist, distPoint, FONT_HERSHEY_COMPLEX_SMALL, 1, redColor);
         }
 
         imshow("Segmentation", seg);
