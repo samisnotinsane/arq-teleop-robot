@@ -26,7 +26,7 @@ Inside the robot mind: Accessing 3D scene reconstruction through Virtual Reality
 To use the packages, do the following:
 1. `catkin_make`
 2. `source devel/setup.bash`
-3. either `roslaunch kinect_bridge kinect_bridge`
+3. either `roslaunch kinect2_bridge kinect2_bridge`
     or `rosrun object_locator object_locator <type>`
 
     where `<type>` can be `color`, `depth`, `both`, `objects_image` or `edges_depth`
