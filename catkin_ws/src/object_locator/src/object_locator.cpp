@@ -322,7 +322,7 @@ int main (int argc, char **argv) {
           type == "edges_depth"    ||
           type == "objects_image"    ))
     {
-        cout << "The final argument must be [color | depth | both | edges | objects_image]" << endl;
+        cout << "The final argument must be [color | depth | both | edges | edges_depth | objects_image]" << endl;
         return 0;
     }
 
