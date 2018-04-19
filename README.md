@@ -23,7 +23,7 @@ Inside the robot mind: Accessing 3D scene reconstruction through Virtual Reality
 1. Modified version of iai_kinect2.
 2. Interface with different features such as basic object location and edge detection.
 
-To use the packages, do the following:
+To use the packages, do the following from inside the catkin_ws folder:
 1. `catkin_make`
 2. `source devel/setup.bash`
 3. either `roslaunch kinect2_bridge kinect2_bridge`
