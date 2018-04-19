@@ -69,6 +69,10 @@ void registerPipeline() {
     }
 }
 
+/* 
+ * This method initialises the device and enumerates the number of devices connected
+ *
+ */
 bool initDevice() {
 
     if(freenect2.enumerateDevices() == 0) {
@@ -90,6 +94,10 @@ void printKinectDetails() {
         cout << "" << endl;
 }
 
+/* 
+ * This method sets up the Kinect v2's pipeline
+ *
+ */
 bool setupKinect() {
 
     if(!initDevice()) {
@@ -103,6 +111,10 @@ bool setupKinect() {
     return true;
 }
 
+/* 
+ * This method starts up the Kinect v2
+ *
+ */
 bool startDevice() {
 
     if(!dev->start()) {
@@ -117,6 +129,10 @@ bool startDevice() {
     return true;
 }
 
+/* 
+ * This method sets up the registration for the Kinect
+ *
+ */
 void setupRegistration() {
 
     irParams = dev->getIrCameraParams();
@@ -125,6 +141,11 @@ void setupRegistration() {
     registration = new libfreenect2::Registration(irParams, colorParams);
 }
 
+/* 
+ * This method processes the images depending on the input for the variable type
+ *  the method then displays the image
+ *
+ */
 void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     
     listener->waitForNewFrame(frames);
@@ -249,6 +270,10 @@ void showImages(libfreenect2::FrameMap frames, Mat &color, Mat &dep) {
     }
 }
 
+/* 
+ * This method begins the collection of frames and calls the method to process images
+ *
+ */
 void beginCollection(libfreenect2::FrameMap frames) {
 
     while(!protonect_shutdown) {
@@ -261,6 +286,11 @@ void beginCollection(libfreenect2::FrameMap frames) {
     }
 }
 
+/* 
+ *This method opens a libfreenect connection with the kinect v2
+ * starts the device then begins collecting frames
+ *
+ */
 bool openDevice() {
 
     if(pipeline != nullptr) {
@@ -297,6 +327,10 @@ bool openDevice() {
     return true;
 }
 
+/* 
+ *  Method used to close libfreenect connectin with device
+ *
+ */
 void closeDevice() {
     dev -> stop();
     dev -> close();
