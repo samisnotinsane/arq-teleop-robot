@@ -74,5 +74,14 @@
     <remap from="scan" to="/scan"/>                                                                           
   </node>     
 </group>
+
+<!-- Node for converting keyboard input to Twist messages (turtlebot movement command helper) -->
+<node name="keys_to_twist" pkg="pan_tilt_gazebo" type="keys_to_twist.py" output="screen" 
+launch-prefix="gnome-terminal --command" />
+
+<!-- Node for accepting keyboard input for controlling the turtlebot. -->
+<node name="key_publisher" pkg="pan_tilt_gazebo" type="key_publisher.py" output="screen"
+launch-prefix="gnome-terminal --command" />
+
 </launch>
 

@@ -20,6 +20,9 @@ def keys_cb(msg, twist_pub):
 
 if __name__ == '__main__':
     rospy.init_node('keys_to_twist')
+    print('[ROSNODE] keys_to_twist.py')
     twist_pub = rospy.Publisher('/turtlebot/cmd_vel_mux/input/teleop', Twist, queue_size=1)
     rospy.Subscriber('keys', String, keys_cb, twist_pub)
+    print('This terminal maps keyboard input into motion commands for the turtlebot.\nOnly close it after terminating simulation!')
+    print("Press Ctrl-C to exit...")
     rospy.spin()
