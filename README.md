@@ -38,3 +38,5 @@ Ensure that SDK is in the home directory, run the line "export PYTHONPATH=$PYTHO
 If the serial port is not enabed then to initialise serial port on linux run in terminal:
 sudo usermod -a -G dialout burarara
 sudo chmod a+rw /dev/ttyUSB0
+If rosrun does not work then try:
+source ~/catkin_ws/devel/setup.bash
