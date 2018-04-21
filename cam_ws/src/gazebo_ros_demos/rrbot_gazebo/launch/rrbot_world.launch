@@ -24,7 +24,7 @@
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-urdf -model rrbot -param robot_description0"/>
+    args="-urdf -model rrbot -param robot_description0 -x -1.2 -y 0.5 -z 0.04"/>
 
     <!-- send robot urdf to param server -->
     <include file="$(find ur_description)/launch/ur5_upload.launch">

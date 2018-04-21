@@ -20,7 +20,7 @@ UrPositionerKinetic::UrPositionerKinetic(ros::NodeHandle& nodeHandle)
     ROS_ERROR("Could not read parameters.");
     ros::requestShutdown();
   }
-  
+
   subscriber_ = nodeHandle_.subscribe(subscriberTopic_, 1,
                                       &UrPositionerKinetic::topicCallback, this);
   //spinner.stop();
@@ -65,7 +65,7 @@ void UrPositionerKinetic::topicCallback(geometry_msgs::Pose target_pose1)
 
   //bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
   //move_group.plan(my_plan);
- 
+
   ROS_INFO("About to block");
   //ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
   ROS_INFO("Did I get here?");
@@ -73,10 +73,10 @@ void UrPositionerKinetic::topicCallback(geometry_msgs::Pose target_pose1)
   move_group.move();
   //move_group.execute(my_plan);
 
-		std::vector<geometry_msgs::Pose> waypoints;
+		/*std::vector<geometry_msgs::Pose> waypoints;
 
 		//waypoints.push_back(target_pose1);
-		
+
 		target_pose1.position.x += 0.2; //left
 		//target_pose1.position.z += 0.2;
 
@@ -90,7 +90,7 @@ void UrPositionerKinetic::topicCallback(geometry_msgs::Pose target_pose1)
 		target_pose1.position.x -= 0.2; //right
 		waypoints.push_back(target_pose1);
 
-		
+
 		target_pose1.position.z += 0.2;
 		waypoints.push_back(target_pose1);
 
@@ -107,9 +107,8 @@ void UrPositionerKinetic::topicCallback(geometry_msgs::Pose target_pose1)
 	sleep(10.0);
 	my_plan.trajectory_ = trajectory;
 	ROS_INFO("Just checking you got here");
-        move_group.execute(my_plan);
+        move_group.execute(my_plan);*/
 
 }
 
 } /* namespace */
-

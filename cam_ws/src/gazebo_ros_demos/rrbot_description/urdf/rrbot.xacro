@@ -22,11 +22,11 @@
 
   <joint name="fixed" type="planar">
     <parent link="world"/>
-    <child link="link1"/>
+    <child link="link3"/>
   </joint>
 
   <!-- Base Link -->
-  <link name="link1">
+  <!--link name="link1">
     <collision>
       <origin xyz="0 0 ${height1/2}" rpy="0 0 0"/>
       <geometry>
@@ -58,10 +58,10 @@
     <origin xyz="0 ${width} ${height1 - axel_offset}" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="0.7"/>
-  </joint>
+  </joint-->
 
   <!-- Middle Link -->
-  <link name="link2">
+  <!--link name="link2">
     <collision>
       <origin xyz="0 0 ${height2/2 - axel_offset}" rpy="0 0 0"/>
       <geometry>
@@ -93,7 +93,7 @@
     <origin xyz="0 ${width} ${height2 - axel_offset*2}" rpy="0 0 0"/>
     <axis xyz="0 1 0"/>
     <dynamics damping="0.7"/>
-  </joint>
+  </joint-->
 
   <!-- Top Link -->
   <link name="link3">
@@ -122,15 +122,15 @@
     </inertial>
   </link>
 
-  <joint name="hokuyo_joint" type="fixed">
+  <!--joint name="hokuyo_joint" type="fixed">
     <axis xyz="0 1 0" />
     <origin xyz="0 0 ${height3 - axel_offset/2}" rpy="0 0 0"/>
     <parent link="link3"/>
     <child link="hokuyo_link"/>
-  </joint>
+  </joint-->
 
   <!-- Hokuyo Laser -->
-  <link name="hokuyo_link">
+  <!--link name="hokuyo_link">
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
@@ -150,7 +150,7 @@
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
-  </link>
+  </link-->
 
   <joint name="camera_joint" type="fixed">
     <axis xyz="0 1 0" />
@@ -196,7 +196,7 @@
   <link name="camera_link_optical">
   </link>
 
-  <transmission name="tran1">
+  <!--transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint1">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
@@ -216,6 +216,6 @@
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
-  </transmission>
+  </transmission-->
 
 </robot>
