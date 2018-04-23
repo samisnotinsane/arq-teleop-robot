@@ -2,12 +2,6 @@
 
 RJcR implements a custom robot in [Gazebo](http://gazebosim.org/) which features a revolute joint as its neck and stereo camera for capturing images. It also comes with a [Unity](https://unity3d.com/) client designed for the [Oculus Rift](https://www.oculus.com/rift/) which receives an image stream from the simulated robot and allows teleoperation of simulated robot neck through head tracking on the Rift.
 
-## Screenshots
-
-# [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/gzsim-scene-overview.png" width="480" alt ="RJcR Gazebo simulation"/>](https://github.com/samisnotinsane/arq-teleop-robot/tree/sameen_development) #
-
-# [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/robot-eye-stream-scene.PNG" width="480" alt ="RJcR Unity VR application"/>](https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/rift-ros-win32client.unitypackage) #
-
 ## Getting Started
 These instructions will get you a copy of this prototype up and running on your local machine for development and testing. 
 
@@ -26,7 +20,7 @@ It is assumed you are comfortable with using the Linux terminal. To run this pro
 * [Gazebo](http://gazebosim.org/download) - An open source robot simulation engine. Use version 7.1 as compatibility with latest version has not been tested.
 
 **Caution for VM users!**
-Due to a rendering bug in Gazebo, camera images captured in simulation cannot be streamed nor viewed when running this software in VirtualBox (nature of error you will see is documented in issue #1). We have not tested with VM Ware - your mileage may vary (in which case let us know by recording an issue). All thigs considered, we recommend using a physical machine for best performance.
+Due to a rendering bug in Gazebo, camera images captured in simulation cannot be streamed nor viewed when running this software in VirtualBox (nature of error you will see is documented in issue #1). We have not tested with VM Ware - your mileage may vary (in which case let us know by recording an issue). All things considered, we recommend using a physical machine for best performance.
 
 **Client specifications (min requirements may be lower)**
 * Processor: Intel® Core™ i7-6700K CPU @ 4.00GHz 4.00GHz
@@ -110,4 +104,8 @@ Ensure that the Oculus Rift is connected and that your server is running.
 
 Hit play in Unity - now sit back, relax and enjoy!
 
+## Screenshots
 
+# [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/gzsim-scene-overview.png" width="480" alt ="RJcR Gazebo simulation"/>](https://github.com/samisnotinsane/arq-teleop-robot/tree/sameen_development) #
+
+# [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/robot-eye-stream-scene.PNG" width="480" alt ="RJcR Unity VR application"/>](https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/rift-ros-win32client.unitypackage) #
