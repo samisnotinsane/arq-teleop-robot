@@ -1,20 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="pan_tilt_bot">
   
-  <!--
-
-  IMPORTANT!
-
-  If you modify this Xacro based URDF description, please run:
-  . update_urdf.sh
-  from directory:
-    pan_tilt_description/urdf/
-  to generate a new URDF.
-  The generated URDF will then be used by Gazebo to spawn the pan_tilt bot.
-
-  Failure to do this will result in your change being not reflected in simulation.
-  -->
-
   <!-- Documentation on URDF: http://wiki.ros.org/urdf/XML -->
   <!-- Documentation on Xacro: http://wiki.ros.org/xacro -->
 
@@ -33,11 +19,7 @@
   <xacro:property name="head_link_size_z" value="0.15" />
   
   <!-- Origin position of head.  -->
-  <!-- 
-    *BUG*: 
-    For some mysterious reason, even when all values are 0,
-    the link refuses to stay grounded and floats above base.
-  -->
+
   <xacro:property name="head_link_origin_x" value="0" />
   <xacro:property name="head_link_origin_y" value="0" />
   <xacro:property name="head_link_origin_z" value="0" />
