@@ -106,8 +106,12 @@ Hit play in Unity - now sit back, relax and enjoy!
 
 ## Screenshots
 
+# [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/robot-full.png" width="480" alt ="Custom robot in Gazebo"/>](https://github.com/samisnotinsane/arq-teleop-robot/tree/sameen_development/catkin_ws/src/pan_tilt_description) #
+Custom robot with stereo camera and 1 degree of freedom (DoF) revolute neck joint.
+
 # [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/gzsim-scene-overview.png" width="480" alt ="RJcR Gazebo simulation"/>](https://github.com/samisnotinsane/arq-teleop-robot/tree/sameen_development) #
 Custom robot and turtlebot in Gazebo simulation.
 
 # [<img src="https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/screenshots/robot-eye-stream-scene.PNG" width="480" alt ="RJcR Unity VR application"/>](https://github.com/samisnotinsane/arq-teleop-robot/blob/sameen_development/rift-ros-win32client.unitypackage) #
 Live stream from robot in Gazebo simulation in Unity3D.
+
