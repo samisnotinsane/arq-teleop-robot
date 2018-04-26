@@ -17,7 +17,7 @@ I recommend using a native install but [Virtualbox](https://www.virtualbox.org/w
 
 You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzFGHQGbfDLVZCa3s). The password is simply ```password```.. It currently has the following installed:
 
-- [Ubuntu 14.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
+- [Ubuntu 16.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
 - [Ros Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 - pip >= 8.1
 - Git
