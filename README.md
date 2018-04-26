@@ -86,12 +86,15 @@ Open a new terminal so your environments are sourced
 
 ### Keyboard usage
 u for up on the blue axis
+
 j for down on the blue axis
 
 w for up on the red axis
+
 s for down on the red axis
 
 a for left on the green axis
+
 d for right on the green axis
 
 x to exit
