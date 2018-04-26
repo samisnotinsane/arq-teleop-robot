@@ -1,5 +1,5 @@
 # Touch it, move it, feel it; enhanced object understanding through robot action
-A simulation environment in gazebo equipped for testing data-gathering software which are intended for use on a UR5 arm affixed with an Allegro hand end-effector.
+A simulation setup in gazebo called Sen, equipped for testing data-gathering software which are intended for use on a UR5 arm affixed with an Allegro hand end-effector.
 
 ### Features
 
