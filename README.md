@@ -29,7 +29,7 @@ A VM will be very problematic but if it is the only option you can download [thi
 ```git clone -b Nnadozie_ https://github.com/samisnotinsane/arq-teleop-robot.git```
 
 ## Need To Have
-- Everything installed in the OVA listed above, except terminator. See [this guide](https://www.ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2017/how_to_setup_developer_pc.pdf). Instructions for updating pip are contained in the Virtualenv installation guide below.
+- Everything installed in the OVA listed above, except terminator. See [this guide](https://www.ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2017/how_to_setup_developer_pc.pdf) for instructions on installing them.
 - [Virtualenv](https://www.tensorflow.org/install/install_linux#InstallingVirtualenv) *helpful for isolating python environments when working with tensorflow. I advice doing all work and installations in this environment.
 - [Tensorflow](https://www.tensorflow.org/install/install_linux) *note that Tensorflow requires 64-bit architectures.
 - After installing tensorflow in virtualenv make sure you are NOT in virtualenv then install moveit!:
