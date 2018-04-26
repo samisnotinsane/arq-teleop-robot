@@ -13,9 +13,9 @@ A simple interface to interact with Convolutional Neural Networks.
 
 # Setting Up Your PC
 
-I recommend using [Virtualbox](https://www.virtualbox.org/wiki/Downloads) for getting started quickly but note that image streaming from Gazebo in a VM does not work and be sure to install the guest additions and extension packs for your system if they are required. The password is simply ```password```.
+I recommend using [Virtualbox](https://www.virtualbox.org/wiki/Downloads) for getting started quickly but note that image streaming from Gazebo in a VM does not work and be sure to install the guest additions and extension packs for your system if they are required.
 
-You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzFGHQGbfDLVZCa3s). It currently has the following installed:
+You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzFGHQGbfDLVZCa3s). The password is simply ```password```.. It currently has the following installed:
 
 - [Ubuntu 14.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
 - [Ros Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
@@ -24,69 +24,62 @@ You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzF
 - Terminator
 - [Catkin command line tools](http://catkin-tools.readthedocs.io/en/latest/installing.html#installing-on-ubuntu-with-apt-get) - for using catkin build
 
+
 ## Clone This Repository
 
 ```git clone -b Nnadozie_ https://github.com/samisnotinsane/arq-teleop-robot.git```
 
-## Need To Install
-
+## Need To Have
+- Everything installed in the OVA listed above, except terminator. See [this guide](https://www.ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2017/how_to_setup_developer_pc.pdf). Instructions for updating pip are contained in the Virtualenv installation guide below.
 - [Virtualenv](https://www.tensorflow.org/install/install_linux#InstallingVirtualenv) *helpful for isolating python environments when working with tensorflow. I advice doing all work and installations in this environment.
 - [Tensorflow](https://www.tensorflow.org/install/install_linux) *note that Tensorflow requires 64-bit architectures.
-- [universal_robot](http://wiki.ros.org/universal_robot) -- in kinetic this has to be built from source which has been included in this repo under ur_workspace. Simply navigate to ur_workspace/src and run ```catkin_make```
+- [universal_robot](http://wiki.ros.org/universal_robot) -- in kinetic this has to be built from source which has been included in this repo under ur_workspace. Simply navigate to /ur_workspace and run ```catkin_make```
 - [moveit!](http://moveit.ros.org/install/)
 
+## To Re-Source Your Environment Each Time a New Terminal is Opened
+
+```echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc``` to source your kinetic environment. This also sources moveit!
+change <your_path_to_tensorflow> to your actual path to tensorflow
+```echo "source <your_path_to_tensorflow>/bin/activate" >> ~/.bashrc``` for bash, sh, ksh, or zsh users
+```echo "source <your_path_to_tensorflow>/bin/activate.csh" >> ~/.bashrc``` for csh or tcsh users
+
+Now when you open a new terminal you should see ```(tensorflow) qmul@qmul-VirtualBox:~$``` 
 
 # Starting Up Your Environment
+## Building the required packages
+The following must be built and sourced in the order given:
 
-## Starting up the UR5 and Camera bot in an empty Gazebo
+- from arq-teleop-robot ```cd cam_ws/```
+- run catkin_make
+- run ```source devel/setup.bash```
 
-In a terminal of your choice (I recommend using terminator)
+- If you didn't do so above, from arq-teleop-robot ```cd ur_workspace/```
+- run ```catkin_make```
+- run ```source devel/setup.bash```
 
-#### launch the virtualenv environment where tensorflow is installed
+- from arq-teleop-robot ```cd catkin_wsu/```
+- run ```sudo apt-get install ros-kinetic-moveit-visual-tools```
+- run ```catkin build ur_positioner_kinetic```
+- run ```source devel/setup.bash```
 
-`$ source ~/tensorflow/bin/activate`
+**installed ros control
 
-This can be added to `~/.bashrc` so it runs each time a new tab is opened
+## To Source Built Packages Each Time a New Terminal is Opened
 
-To do so simply:
+echo "source <path to cam_ws>/devel/setup.bash" >> ~/.bashrc
+echo "source <path to ur_workspace>/devel/setup.bash" >> ~/.bashrc
+echo "source <path to catkin_wsu>/devel/setup.bash" >> ~/.bashrc
+  
 
-`$ echo "source ~/tensorflow/bin/activate" >> ~/.bashrc`
+# Running Sen
 
-#### launch UR5 in gazebo
+Open a new terminal so your environments are sourced
 
-`$ roslaunch ur_gazebo ur5.launch limited:=true`
+## Just Sen Publishing Images to a Topic
+- from cam_ws
 
-If you chose to use the ova file provided, it already has UR5 ros packages installed.
 
-#### launch the motion planner and rviz interface
 
-`$ roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true limited:=true`
 
-`$ roslaunch ur5_moveit_config moveit_rviz.launch config:=true`
 
-## Running a number classification tensorflow model that interacts with ros nodes
-
-If you chose not to use the provided ova, the source code for the tensorflow model can be found [here](https://github.com/shunchan0677/Tensorflow_in_ROS).
-
-You can watch this [video](https://1drv.ms/v/s!AjMXzGx2ztdEgX9iOoT1-66_13xy), or follow the instructions in that repo to get things running
-
-# Using the packages in this project
-There are currently three packages:
-#### ur_positioner:
-
-Used to move the UR5 arm to a position given over a topic. The topic can be configured in the package's config.yaml file by updating subscriber_topic, or setting the parameter in the parameter server.
-
-To launch run `roslaunch ur_positioner ur_positioner.launch`
-
-#### ur_position_publisher:
-
-Can be used to publish positions to the ur_positioner when the control loop isn't closed.
-
-To launch run `roslaunch ur_position_publisher ur_position_publisher.launch`
-
-#### ur_world_objects:
-
-Package containing useful objects such as cups and tables.
-
-These can be located using $(find ur_world_objects)/objects/<object_urdf>
 
