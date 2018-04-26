@@ -20,8 +20,10 @@ from subprocess import call
 
 # Instantiate CvBridge
 bridge = CvBridge()
+count = 0
 
 def image_callback(msg):
+    global count
     print("Received an image!")
     try:
         # Convert your ROS Image message to OpenCV2
@@ -29,9 +31,12 @@ def image_callback(msg):
     except CvBridgeError, e:
         print(e)
     else:
-        # Save your OpenCV2 image as a jpeg 
-        cv2.imwrite('camera_image.jpeg', cv2_img)
+        # Save your OpenCV2 image as a jpeg
+	cv2.imwrite('./images/camera_image.jpeg', cv2_img) 
+        cv2.imwrite('./images/camera_image'+ str(count) + '.jpeg', cv2_img)
+    	count += 1
 
+    #run the script which runs the image classifier
     call("./classify.sh")
 
 def main():
