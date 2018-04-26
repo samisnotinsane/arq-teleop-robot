@@ -13,13 +13,13 @@ A simple interface to interact with Convolutional Neural Networks.
 
 # Setting Up Your PC
 
-I recommend using [Virtualbox](https://www.virtualbox.org/wiki/Downloads) for getting started quickly but note that image streaming from Gazebo in a VM does not work and be sure to install the guest additions and extension packs for your system if they are required.
+I recommend using a native install but [Virtualbox](https://www.virtualbox.org/wiki/Downloads) can also be used for getting started quickly, however note that image streaming from Gazebo in a VM does not work, and sometimes the universal_robot ros package fails to run properly in a VM. Also be sure to install the guest additions and extension packs for your Virtualbox if they are required.
 
 You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzFGHQGbfDLVZCa3s). The password is simply ```password```.. It currently has the following installed:
 
 - [Ubuntu 14.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
 - [Ros Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
-- pip 10.0.1
+- pip >= 8.1
 - Git
 - Terminator
 - [Catkin command line tools](http://catkin-tools.readthedocs.io/en/latest/installing.html#installing-on-ubuntu-with-apt-get) - for using catkin build
@@ -33,27 +33,21 @@ You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzF
 - Everything installed in the OVA listed above, except terminator. See [this guide](https://www.ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2017/how_to_setup_developer_pc.pdf). Instructions for updating pip are contained in the Virtualenv installation guide below.
 - [Virtualenv](https://www.tensorflow.org/install/install_linux#InstallingVirtualenv) *helpful for isolating python environments when working with tensorflow. I advice doing all work and installations in this environment.
 - [Tensorflow](https://www.tensorflow.org/install/install_linux) *note that Tensorflow requires 64-bit architectures.
-- [universal_robot](http://wiki.ros.org/universal_robot) -- in kinetic this has to be built from source which has been included in this repo under ur_workspace. Simply navigate to /ur_workspace and run ```catkin_make```
+- [universal_robot](http://wiki.ros.org/universal_robot) -- in kinetic this has to be built from source which has been included in this repo under ur_workspace.
 - [moveit!](http://moveit.ros.org/install/)
 
-## To Re-Source Your Environment Each Time a New Terminal is Opened
-
-```echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc``` to source your kinetic environment. This also sources moveit!
-change <your_path_to_tensorflow> to your actual path to tensorflow
-```echo "source <your_path_to_tensorflow>/bin/activate" >> ~/.bashrc``` for bash, sh, ksh, or zsh users
-```echo "source <your_path_to_tensorflow>/bin/activate.csh" >> ~/.bashrc``` for csh or tcsh users
-
-Now when you open a new terminal you should see ```(tensorflow) qmul@qmul-VirtualBox:~$``` 
-
 # Starting Up Your Environment
+
+Open a new terminal
+
 ## Building the required packages
 The following must be built and sourced in the order given:
 
-- from arq-teleop-robot ```cd cam_ws/```
-- run catkin_make
+- from arq-teleop-robot run ```cd cam_ws/```
+- run ```catkin_make```
 - run ```source devel/setup.bash```
 
-- If you didn't do so above, from arq-teleop-robot ```cd ur_workspace/```
+- from arq-teleop-robot run ```cd ur_workspace/```
 - run ```catkin_make```
 - run ```source devel/setup.bash```
 
@@ -62,21 +56,56 @@ The following must be built and sourced in the order given:
 - run ```catkin build ur_positioner_kinetic```
 - run ```source devel/setup.bash```
 
-**installed ros control
+## 0. To Source Built Packages Each Time a New Terminal is Opened
 
-## To Source Built Packages Each Time a New Terminal is Opened
+Be sure to change <path to cam_ws> to the actual path
 
-echo "source <path to cam_ws>/devel/setup.bash" >> ~/.bashrc
-echo "source <path to ur_workspace>/devel/setup.bash" >> ~/.bashrc
-echo "source <path to catkin_wsu>/devel/setup.bash" >> ~/.bashrc
-  
+- ```echo "source <path to cam_ws>/devel/setup.bash" >> ~/.bashrc```
+- ```echo "source <path to ur_workspace>/devel/setup.bash" >> ~/.bashrc```
+- ```echo "source <path to catkin_wsu>/devel/setup.bash" >> ~/.bashrc```  
 
 # Running Sen
 
 Open a new terminal so your environments are sourced
 
-## Just Sen Publishing Images to a Topic
-- from cam_ws
+## 1. Just Sen Publishing Images to a Topic
+
+- If you ignored steps in 0, source the cam_ws and ur_workspace environments ```source <path to cam_ws>/devel/setup.bash``` ```source <path to ur_workspace>/devel/setup.bash```
+- Run ```roslaunch rrbot_gazebo rrbot_world.launch```
+- to view images being published in a new tab run ```rqt_image_view```
+- select /rrbot/camera1/image_raw when the viewing terminal opens
+- The camera robot can be moved around in Gazebo for different points of view
+
+## 2. Using Sen's UR5 Keyboard Interface
+- Run steps in 1.
+- In a new terminal make sure the catkin_wsu and ur_workspace environments are sourced ```source <path to catkin_wsu>/devel/setup.bash``` ```source <path to ur_workspace>/devel/setup.bash```
+- Run ```roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true limited:=true```
+- In a new terminal launch the ur_positioner_kinetic node ```roslaunch ur_positioner_kinetic ur_positioner_kinetic.launch```
+- In yet another terminal run ```python <path to arq-teleop-robot>/catkin_wsu/src/ur_keyboard_controller.py```
+- If there is a collision with the ground plane start again from step 1, otherwise the UR5 arm should have moved into place
+
+### Keyboard usage
+u for up on the blue axis
+j for down on the blue axis
+
+w for up on the red axis
+s for down on the red axis
+
+a for left on the green axis
+d for right on the green axis
+
+x to exit
+
+## Automatically Saving Sen's Images and Classifying them
+- Run steps in 1.
+- Run ```mkdir <path to arq-teleop-robot>/cam_ws/src/<images>```
+- Open the file called classify.sh in arq-teleop-robot/cam_ws/images/
+- Modify the absolute path /home/lorenzo/doz in the argument to --image_file, to reflect your computers absolute path
+- navigate to <path to arq-teleop-robot>/cam_ws/src
+- Run ```source <your_path_to_tensorflow>/bin/activate```
+- You should see ```(tensorflow) qmul@qmul-VirtualBox:~$``` in place of just ```qmul@qmul-VirtualBox:~$```
+- Run ```python classify_gazebo_image.py```
+- The classification output is stored in <path to arq-teleop-robot>/cam_ws/src/classification.log
 
 
 
