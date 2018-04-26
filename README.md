@@ -84,6 +84,8 @@ Open a new terminal so your environments are sourced
 - In yet another terminal run ```python <path to arq-teleop-robot>/catkin_wsu/src/ur_keyboard_controller.py```
 - If there is a collision with the ground plane start again from step 1, otherwise the UR5 arm should have moved into a starting position.
 
+![image](https://user-images.githubusercontent.com/15310842/39326494-152340b2-498d-11e8-8e26-bfd28a7611b0.png)
+
 ### Keyboard usage
 u for up on the blue axis
 
