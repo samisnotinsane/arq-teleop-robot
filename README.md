@@ -110,7 +110,7 @@ x to exit
 - You should see ```(tensorflow) qmul@qmul-VirtualBox:~$``` in place of just ```qmul@qmul-VirtualBox:~$```
 - Run ```python classify_gazebo_image.py```
 - The classification output is stored in <path to arq-teleop-robot>/cam_ws/src/classification.log
-- The first time it runs expect to see the logs for Downloading inception. I suggest renaming the images folder and log file each time a session is completed.
+- The first time it runs expect to see the logs for Downloading inception. I suggest renaming the images folder, creating a new images folder and renaming the classification.log file each time a session is completed.
 
 
 
