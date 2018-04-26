@@ -1,9 +1,9 @@
 # Touch it, move it, feel it; enhanced object understanding through robot action
-A simulation environment in gazebo equipped for testing data gathering software which is intended for use on a UR5 arm affixed with an Allegro hand end effector
+A simulation environment in gazebo equipped for testing data-gathering software which is intended for use on a UR5 arm affixed with an Allegro hand end-effector.
 
 ### Features
 
-An interface to control a simulated robotic arm and multi-digit anthropomorphic robotic hand. 
+An interface to control a UR5 arm.
 
 An interface to a simulated RGB-D camera through which images taken from within the simulation environment can be saved. 
 
@@ -82,7 +82,7 @@ Open a new terminal so your environments are sourced
 - Run ```roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch sim:=true limited:=true```
 - In a new terminal launch the ur_positioner_kinetic node ```roslaunch ur_positioner_kinetic ur_positioner_kinetic.launch```
 - In yet another terminal run ```python <path to arq-teleop-robot>/catkin_wsu/src/ur_keyboard_controller.py```
-- If there is a collision with the ground plane start again from step 1, otherwise the UR5 arm should have moved into place
+- If there is a collision with the ground plane start again from step 1, otherwise the UR5 arm should have moved into a starting position.
 
 ### Keyboard usage
 u for up on the blue axis
