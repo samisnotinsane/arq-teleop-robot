@@ -1,33 +1,44 @@
-## Touch it, move it, feel it; enhanced object understanding through robot action
-A simulation environment in gazebo equipped for exploring image classification of objects as they are moved about with a UR5 arm.
+# Touch it, move it, feel it; enhanced object understanding through robot action
+A simulation environment in gazebo equipped for testing data gathering software which is intended for use on a UR5 arm affixed with an Allegro hand end effector
 
+### Features
+
+An interface to control a simulated robotic arm and multi-digit anthropomorphic robotic hand. 
+
+An interface to a simulated RGB-D camera through which images taken from within the simulation environment can be saved. 
+
+Planned: An interface to simulated tactile sensors through which contact and force measurements taken from within the simulation environment can be saved.  
+
+A simple interface to interact with Convolutional Neural Networks.
 
 # Setting Up Your PC
-## Using A Virtual Environment
-I recommend using [Virtualbox](https://www.virtualbox.org/wiki/Downloads) - Just be sure to install the guest additions and extension packs for your system if they are required.
 
-You can download [this ova](https://drive.google.com/file/d/1YD4u1dLc_PCFunNFaEXeKqiDsUFzpHGd/view?usp=sharing), which aims to have all the required software plus the ROS packages used for the simulation. It currently has the following installed and will be updated as work progresses:
+I recommend using [Virtualbox](https://www.virtualbox.org/wiki/Downloads) for getting started quickly but note that image streaming from Gazebo in a VM does not work and be sure to install the guest additions and extension packs for your system if they are required. The password is simply ```password```.
+
+You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzFGHQGbfDLVZCa3s). It currently has the following installed:
 
 - [Ubuntu 14.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
-- [Ros Indigo](http://wiki.ros.org/indigo/Installation/Ubuntu)
+- [Ros Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
+- pip 10.0.1
+- Git
+- Terminator
+- [Catkin command line tools](http://catkin-tools.readthedocs.io/en/latest/installing.html#installing-on-ubuntu-with-apt-get) - for using catkin build
+
+## Clone This Repository
+
+```git clone -b Nnadozie_ https://github.com/samisnotinsane/arq-teleop-robot.git```
+
+## Need To Install
+
 - [Virtualenv](https://www.tensorflow.org/install/install_linux#InstallingVirtualenv) *helpful for isolating python environments when working with tensorflow. I advice doing all work and installations in this environment.
 - [Tensorflow](https://www.tensorflow.org/install/install_linux) *note that Tensorflow requires 64-bit architectures.
-- [universal_robot](http://wiki.ros.org/universal_robot)
+- [universal_robot](http://wiki.ros.org/universal_robot) -- in kinetic this has to be built from source which has been included in this repo under ur_workspace. Simply navigate to ur_workspace/src and run ```catkin_make```
 - [moveit!](http://moveit.ros.org/install/)
-
-The following are for external images via a webcam, and a coding IDE, and multi-tab terminal.
-- [cv_camera](http://wiki.ros.org/cv_camera) `$ sudo apt-get install ros-indigo-cv-camera`
-- [cv_bridge and opencv3](http://wiki.ros.org/cv_bridge) *should already be installed as dependencies of cv_camera
-- [droidcam](https://www.dev47apps.com/) *may require android tools (adb) *not necessary if your webcam works *
-- [chrome, git, terminator, java8 & Eclipse -follow link for how to setup eclipse for ros package development](https://www.ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2017/how_to_setup_developer_pc.pdf)
 
 
 # Starting Up Your Environment
-- Currently you can load a ur5 arm in one of the default worlds provided, and use the moveit motion planner to plan its movements.
-- Also available is a tensorflow model for classifying images of numbers that are fed in through a webcam. It will be retrained to classify objects that are placed in the gazebo environment, and the image feed will be redirected to come from inside the gazebo environment.
 
-## Starting up UR5 in an empty world and using the moveit rviz planning interface
-[See video of how to do this here](https://1drv.ms/v/s!AjMXzGx2ztdEgX4J5WDuIAtWRz-5) or:
+## Starting up the UR5 and Camera bot in an empty Gazebo
 
 In a terminal of your choice (I recommend using terminator)
 
