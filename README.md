@@ -19,7 +19,6 @@ You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzF
 
 - [Ubuntu 16.04 64-bit PC(AMD64)](http://old-releases.ubuntu.com/releases/14.04.0/)
 - [Ros Kinetic](http://wiki.ros.org/kinetic/Installation/Ubuntu)
-- pip >= 8.1
 - Git
 - Terminator
 - [Catkin command line tools](http://catkin-tools.readthedocs.io/en/latest/installing.html#installing-on-ubuntu-with-apt-get) - for using catkin build
