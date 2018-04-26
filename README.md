@@ -32,7 +32,7 @@ You can download [this ova](https://drive.google.com/open?id=1xC5ZKkmgtbGCBI5yzF
 - Everything installed in the OVA listed above, except terminator. See [this guide](https://www.ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/ROS2017/how_to_setup_developer_pc.pdf). Instructions for updating pip are contained in the Virtualenv installation guide below.
 - [Virtualenv](https://www.tensorflow.org/install/install_linux#InstallingVirtualenv) *helpful for isolating python environments when working with tensorflow. I advice doing all work and installations in this environment.
 - [Tensorflow](https://www.tensorflow.org/install/install_linux) *note that Tensorflow requires 64-bit architectures.
-- [universal_robot](http://wiki.ros.org/universal_robot) -- in kinetic this has to be built from source which has been included in this repo under ur_workspace.
+- After installing tensorflow in virtualenv make sure you are NOT in virtualenv then install moveit!:
 - [moveit!](http://moveit.ros.org/install/)
 
 # Starting Up Your Environment
